@@ -3,6 +3,7 @@
 #include"Src/Application/Scene/BaseScene.h"
 
 class Player;
+class BaseObject;
 
 class GameScene : public BaseScene
 {
@@ -18,6 +19,8 @@ public:
 private:
 
 	std::shared_ptr<Player>	m_Player;
+
+	std::shared_ptr<BaseObject>	m_Enemy;
 
 	//===îwåi===
 	KdTexture		m_Back1Tex;

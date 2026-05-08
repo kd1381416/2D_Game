@@ -1,0 +1,32 @@
+#include"Enemy.h"
+
+void Enemy::Init()
+{
+	m_Tex.Load("Texture/Game/enemy.png");
+	m_Pos = {};
+	m_Speed = 1.0f;
+	m_Active = true;
+}
+
+void Enemy::Update()
+{
+	//¶‚«‚Ä‚¢‚È‚©‚Á‚½‚çÀs‚µ‚È‚¢
+	if (!m_Active)return;
+
+	//“GˆÚ“®ˆ—
+	m_Pos.x -= m_Speed;
+
+	//s—ñì¬
+	m_Mat = Math::Matrix::CreateTranslation(m_Pos.x, m_Pos.y, 0.0f);
+}
+
+void Enemy::Draw()
+{
+	SHADER.m_spriteShader.SetMatrix(m_Mat);
+	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle(0, 0, 64, 64));
+}
+
+void Enemy::Release()
+{
+	m_Tex.Release();
+}

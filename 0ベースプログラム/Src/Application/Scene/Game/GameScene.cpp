@@ -4,10 +4,13 @@
 #include"Src/Application/Manager/KeyManager/KeyManager.h"
 
 #include"Src/Application/Object/Player/Player.h"
+#include"Src/Application/Object/Enemy/Enemy.h"
 
 void GameScene::Init()
 {
 	m_Player = std::make_shared<Player>();
+
+	m_Enemy = std::make_shared<Enemy>();
 
 	m_Back1Tex.Load("Texture/Game/BackGround.png");
 	m_Back1Pos = {};
@@ -19,6 +22,8 @@ void GameScene::Init()
 void GameScene::Update()
 {
 	m_Player->Update();
+
+	m_Enemy->Update();
 
 	//”wŒiˆ—(‰¡ƒXƒNƒ[ƒ‹)
 	m_Back1Pos -= {1, 0};
@@ -43,6 +48,7 @@ void GameScene::Draw()
 	SHADER.m_spriteShader.SetMatrix(m_Back2Mat);
 	SHADER.m_spriteShader.DrawTex(&m_Back2Tex, Math::Rectangle(0, 0, 1280, 720));
 
+	m_Enemy->Draw();
 
 	m_Player->Draw();
 }

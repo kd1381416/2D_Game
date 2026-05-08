@@ -64,6 +64,9 @@
     <Filter Include="Src\Application\Manager\KeyManager">
       <UniqueIdentifier>{c8f72a76-ce7a-4257-b0c7-b5eb33398ec2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\Enemy">
+      <UniqueIdentifier>{0f8b4972-195f-4f37-8bb6-67a4eae96400}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -181,6 +184,9 @@
     <ClInclude Include="Src\Application\Manager\KeyManager\KeyManager.h">
       <Filter>Src\Application\Manager\KeyManager</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Object\Enemy\Enemy.h">
+      <Filter>Src\Application\Object\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -266,6 +272,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Manager\KeyManager\KeyManager.cpp">
       <Filter>Src\Application\Manager\KeyManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Enemy\Enemy.cpp">
+      <Filter>Src\Application\Object\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
