@@ -22,6 +22,8 @@ private:
 
 	std::shared_ptr<BaseObject>	m_Enemy;
 
+	std::vector<std::shared_ptr<BaseObject>>	m_ObjList;
+
 	//===îwåi===
 	KdTexture		m_Back1Tex;
 	Math::Vector2	m_Back1Pos;

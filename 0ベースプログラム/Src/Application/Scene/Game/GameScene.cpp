@@ -8,9 +8,7 @@
 
 void GameScene::Init()
 {
-	m_Player = std::make_shared<Player>();
-
-	m_Enemy = std::make_shared<Enemy>();
+	m_ObjList.push_back(std::make_shared<Player>());
 
 	m_Back1Tex.Load("Texture/Game/BackGround.png");
 	m_Back1Pos = {};
@@ -21,9 +19,11 @@ void GameScene::Init()
 
 void GameScene::Update()
 {
-	m_Player->Update();
-
-	m_Enemy->Update();
+	//全オブジェクトの更新関数を呼ぶ
+	for (int i = 0; i < m_ObjList.size(); i++)
+	{
+		m_ObjList[i]->Update();
+	}
 
 	//背景処理(横スクロール)
 	m_Back1Pos -= {1, 0};
@@ -48,7 +48,10 @@ void GameScene::Draw()
 	SHADER.m_spriteShader.SetMatrix(m_Back2Mat);
 	SHADER.m_spriteShader.DrawTex(&m_Back2Tex, Math::Rectangle(0, 0, 1280, 720));
 
-	m_Enemy->Draw();
+	//全オブジェクトの描画関数を呼ぶ
+	for (int i = 0; i < m_ObjList.size(); i++)
+	{
+		m_ObjList[i]->Draw();
+	}
 
-	m_Player->Draw();
 }
