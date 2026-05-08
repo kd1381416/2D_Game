@@ -3,9 +3,10 @@
 void Enemy::Init()
 {
 	m_Tex.Load("Texture/Game/enemy.png");
-	m_Pos = {};
+	m_Pos = {100,0};
 	m_Speed = 1.0f;
 	m_Active = true;
+	m_ObjectType = ObjectType::Enemy;
 }
 
 void Enemy::Update()
@@ -24,6 +25,12 @@ void Enemy::Draw()
 {
 	SHADER.m_spriteShader.SetMatrix(m_Mat);
 	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle(0, 0, 64, 64));
+}
+
+void Enemy::OnHit()
+{
+	//Hit‚Í¶‘¶ƒtƒ‰ƒO‚ğOFF(ƒQ[ƒ€‰æ–Êã‚©‚çÁ–Å)
+	m_Active = false;
 }
 
 void Enemy::Release()

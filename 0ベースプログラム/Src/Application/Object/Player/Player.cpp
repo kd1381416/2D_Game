@@ -1,5 +1,7 @@
 #include"Player.h"
 
+#include"Src/Application/Scene/Game/GameScene.h"
+
 void Player::Init()
 {
 	m_Tex.Load("Texture/Game/player.png");
@@ -26,6 +28,25 @@ void Player::Update()
 	movevec.Normalize();
 
 	m_Pos += movevec * m_Speed;
+
+	//当たり判定(プレイヤー vs 敵)
+	for (auto& obj : m_Owner->GetObjList())
+	{
+		//オブジェクトリストの中から(敵)とだけ当たり判定する
+		if (obj->GetObjType() == ObjectType::Enemy)
+		{
+			//対象の座標(ベクトル)-自分の座標(ベクトル)=対象へのベクトル(矢印)
+			Math::Vector2 v;
+			v = obj->GetPos() - m_Pos;
+
+			//球判定(ベクトルの長さで判定)
+			if (v.Length() < 64.0f)
+			{
+				//Hit時の処理を行う
+				obj->OnHit();
+			}
+		}
+	}
 
 	//===行列作成===
 	m_Mat = Math::Matrix::CreateTranslation(m_Pos.x, m_Pos.y, 1.0f);

@@ -2,7 +2,6 @@
 
 #include"Src/Application/Scene/BaseScene.h"
 
-class Player;
 class BaseObject;
 
 class GameScene : public BaseScene
@@ -16,9 +15,13 @@ public:
 	void Update()override;
 	void Draw()override;
 
-private:
+	//全オブジェクトのリストを取得
+	std::vector<std::shared_ptr<BaseObject>> GetObjList()
+	{
+		return m_ObjList;
+	}
 
-	std::shared_ptr<Player>	m_Player;
+private:
 
 	std::shared_ptr<BaseObject>	m_Enemy;
 

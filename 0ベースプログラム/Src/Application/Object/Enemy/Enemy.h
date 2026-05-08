@@ -13,6 +13,8 @@ public:
 	void Update()	override;
 	void Draw()		override;
 
+	void OnHit()	override;
+
 private:
 
 	void Release()	override;

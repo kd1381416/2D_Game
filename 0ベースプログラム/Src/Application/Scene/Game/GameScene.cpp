@@ -8,7 +8,13 @@
 
 void GameScene::Init()
 {
-	m_ObjList.push_back(std::make_shared<Player>());
+	std::shared_ptr<Player>	player;
+	player = std::make_shared<Player>();
+	player->Init();
+	player->SetOwner(this);
+	m_ObjList.push_back(player);
+
+	m_ObjList.push_back(std::make_shared<Enemy>());
 
 	m_Back1Tex.Load("Texture/Game/BackGround.png");
 	m_Back1Pos = {};
@@ -19,6 +25,24 @@ void GameScene::Init()
 
 void GameScene::Update()
 {
+
+	//オブジェクトリストの整理
+	auto it = m_ObjList.begin();
+
+	while (it != m_ObjList.end())
+	{
+		// オブジェクトの有効チェック
+		if ((*it)->GetAliveFlg() == false)
+		{
+			// 無効なオブジェクトをリストから削除
+			it = m_ObjList.erase(it);
+		}
+		else
+		{
+			it++;	// 次の要素へイテレータを進める
+		}
+	}
+
 	//全オブジェクトの更新関数を呼ぶ
 	for (int i = 0; i < m_ObjList.size(); i++)
 	{

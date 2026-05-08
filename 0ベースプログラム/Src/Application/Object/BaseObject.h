@@ -17,6 +17,13 @@ public:
 	virtual void Update();
 	virtual void Draw();
 
+	//Hit‚Ìˆ—@¦”h¶æ‚Å‹““®‚ğ•Ï‚¦‚é
+	virtual void OnHit() {}
+
+	ObjectType GetObjType() { return m_ObjectType; }
+	Math::Vector2 GetPos() { return m_Pos; }
+	bool	GetAliveFlg() { return m_Active; }
+
 protected:
 
 	virtual void Release();

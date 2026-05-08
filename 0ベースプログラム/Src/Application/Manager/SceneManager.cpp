@@ -11,6 +11,7 @@ void SceneManager::PreUpdate()
 	{
 		ChangeScene(m_NextSceneType);
 	}
+
 }
 
 void SceneManager::Update()
