@@ -18,4 +18,14 @@ public:
 private:
 
 	std::shared_ptr<Player>	m_Player;
+
+	//===îwåi===
+	KdTexture		m_Back1Tex;
+	Math::Vector2	m_Back1Pos;
+	Math::Matrix	m_Back1Mat;
+
+	KdTexture		m_Back2Tex;
+	Math::Vector2	m_Back2Pos;
+	Math::Matrix	m_Back2Mat;
+
 };
