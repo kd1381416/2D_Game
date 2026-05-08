@@ -46,6 +46,24 @@
     <Filter Include="Src\Application\Object">
       <UniqueIdentifier>{0b646704-457c-4dca-842c-17758bfa2928}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Object\Player">
+      <UniqueIdentifier>{be445d5e-4770-4a92-8a3b-3e29a1722fca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Scene">
+      <UniqueIdentifier>{87a3096b-c408-4596-90f2-b69a14bd2ebe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Manager">
+      <UniqueIdentifier>{db167e79-fbed-4c2e-86b1-99816dce4702}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Scene\Title">
+      <UniqueIdentifier>{711e4994-723f-4ae6-b794-d62a38921ede}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Scene\Game">
+      <UniqueIdentifier>{5011851d-3f34-4a77-9954-72aa9d57a251}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Manager\KeyManager">
+      <UniqueIdentifier>{c8f72a76-ce7a-4257-b0c7-b5eb33398ec2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -141,8 +159,27 @@
     <ClInclude Include="Src\Application\Scene.h">
       <Filter>Src\Application</Filter>
     </ClInclude>
-    <ClInclude Include="BaseObject.h">
+    <ClInclude Include="Src\Application\Object\BaseObject.h">
       <Filter>Src\Application\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Object\Player\Player.h">
+      <Filter>Src\Application\Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Manager\ヘッダー.h" />
+    <ClInclude Include="Src\Application\Scene\BaseScene.h">
+      <Filter>Src\Application\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Manager\SceneManager.h">
+      <Filter>Src\Application\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Scene\Title\TitleScene.h">
+      <Filter>Src\Application\Scene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Scene\Game\GameScene.h">
+      <Filter>Src\Application\Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Manager\KeyManager\KeyManager.h">
+      <Filter>Src\Application\Manager\KeyManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -209,8 +246,26 @@
     <ClCompile Include="Src\Application\Scene.cpp">
       <Filter>Src\Application</Filter>
     </ClCompile>
-    <ClCompile Include="BaseObject.cpp">
+    <ClCompile Include="Src\Application\Object\BaseObject.cpp">
       <Filter>Src\Application\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Object\Player\Player.cpp">
+      <Filter>Src\Application\Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Scene\BaseScene.cpp">
+      <Filter>Src\Application\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Manager\SceneManager.cpp">
+      <Filter>Src\Application\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Scene\Title\TitleScene.cpp">
+      <Filter>Src\Application\Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Scene\Game\GameScene.cpp">
+      <Filter>Src\Application\Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Manager\KeyManager\KeyManager.cpp">
+      <Filter>Src\Application\Manager\KeyManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

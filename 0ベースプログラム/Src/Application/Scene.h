@@ -4,17 +4,6 @@ class Scene
 {
 private:
 
-	// テクスチャ ・・・ 画像データ
-	KdTexture playerTex;
-
-	// 行列 ・・・ 座標などの情報
-	Math::Matrix playerMat;
-
-	//変数
-	int playerX, playerY;
-
-	int frame;
-
 public:
 
 	// 初期設定

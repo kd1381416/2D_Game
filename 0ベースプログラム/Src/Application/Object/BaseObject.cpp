@@ -8,3 +8,10 @@ void BaseObject::Update()
 {
 }
 
+void BaseObject::Draw()
+{
+}
+
+void BaseObject::Release()
+{
+}
