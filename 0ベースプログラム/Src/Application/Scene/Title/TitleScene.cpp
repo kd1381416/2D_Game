@@ -1,6 +1,7 @@
 #include"TitleScene.h"
 
 #include"Src/Application/Manager/SceneManager.h"
+#include"Src/Application/Manager/KeyManager/KeyManager.h"
 
 void TitleScene::Init()
 {
@@ -9,7 +10,7 @@ void TitleScene::Init()
 
 void TitleScene::Update()
 {
-	if(GetAsyncKeyState(VK_RETURN)& 0x8000)
+	if(KeyManager::Instance().ClickEnter())
 	{
 		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Game);
 	}
