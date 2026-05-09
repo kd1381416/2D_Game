@@ -3,7 +3,7 @@
 void Enemy::Init()
 {
 	m_Tex.Load("Texture/Game/enemy.png");
-	m_Pos = {100,0};
+	m_Pos = {0,0};
 	m_Speed = 1.0f;
 	m_Active = true;
 	m_ObjectType = ObjectType::Enemy;

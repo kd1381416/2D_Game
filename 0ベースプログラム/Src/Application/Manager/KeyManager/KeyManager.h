@@ -40,6 +40,14 @@ public:
 		else { return false; }
 	}
 
+	//’·‰Ÿ‚µ‚Ì‚Ý
+	bool PushSpeace()
+	{
+		if (GetAsyncKeyState(VK_SPACE) & 0x8000) { return true; }
+		else { return false; }
+	}
+
+	//’P‰Ÿ‚µ‚Ì‚Ý
 	bool ClickEnter()
 	{
 		if (GetAsyncKeyState(VK_RETURN) & 0x8000)

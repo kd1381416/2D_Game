@@ -8,6 +8,7 @@ public:
 		None,	//タイプ無し
 		Player,	//プレイヤー
 		Enemy,	//エネミー
+		Bullet,	//弾
 	};
 
 	BaseObject() { Init(); }
@@ -31,10 +32,10 @@ protected:
 	static const int	ScrWidth = 1280;
 	static const int	ScrHeght = 720;
 
-	static const int	ScrTop		= 640;
-	static const int	ScrBittom	= -640;
-	static const int	ScrRight	= 360;
-	static const int	ScrLeft		= -360;
+	static const int	ScrTop		= 360;
+	static const int	ScrBittom	= -360;
+	static const int	ScrRight	= 640;
+	static const int	ScrLeft		= -640;
 
 	KdTexture		m_Tex;				//画像
 	Math::Matrix	m_Mat;				//行列

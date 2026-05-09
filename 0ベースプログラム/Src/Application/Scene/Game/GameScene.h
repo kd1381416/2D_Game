@@ -21,6 +21,13 @@ public:
 		return m_ObjList;
 	}
 
+	// オブジェクトリストにオブジェクトを追加
+	void AddObject(std::shared_ptr<BaseObject> _obj)
+	{
+		// リストの末尾に引数で渡された１要素を追加
+		m_ObjList.push_back(_obj);
+	}
+
 private:
 
 	std::shared_ptr<BaseObject>	m_Enemy;

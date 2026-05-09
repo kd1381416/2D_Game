@@ -19,5 +19,7 @@ private:
 
 	void Release()	override;
 
+	float	m_ShotInterval;		//”­ŽËŠÔŠu
+
 	GameScene* m_Owner = nullptr;
 };
