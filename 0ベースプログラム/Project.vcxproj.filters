@@ -70,6 +70,9 @@
     <Filter Include="Src\Application\Object\Bullet">
       <UniqueIdentifier>{81c4f322-5b06-488d-9795-7e68e6d26a83}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Scene\Result">
+      <UniqueIdentifier>{80688a1d-9ccc-44b5-a4ad-ee47e5c52f38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -193,6 +196,9 @@
     <ClInclude Include="Src\Application\Object\Bullet\Bullet.h">
       <Filter>Src\Application\Object\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Scene\Result\ResultScene.h">
+      <Filter>Src\Application\Scene\Result</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -284,6 +290,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Object\Bullet\Bullet.cpp">
       <Filter>Src\Application\Object\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Scene\Result\ResultScene.cpp">
+      <Filter>Src\Application\Scene\Result</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

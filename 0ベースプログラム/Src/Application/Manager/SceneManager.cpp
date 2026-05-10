@@ -3,6 +3,7 @@
 //各シーンの.hをインクルード
 #include"Src/Application/Scene/Title/TitleScene.h"
 #include"Src/Application/Scene/Game/GameScene.h"
+#include"Src/Application/Scene/Result/ResultScene.h"
 
 void SceneManager::PreUpdate()
 {
@@ -48,6 +49,9 @@ void SceneManager::ChangeScene(SceneType _scenetype)
 		//アップキャスト
 		m_CurrentScene = std::make_shared<GameScene>();
 		break;
+	case SceneManager::Result:
+		//アップキャスト
+		m_CurrentScene = std::make_shared<ResultScene>();
 	}
 
 	//2.フラグを更新

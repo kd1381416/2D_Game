@@ -2,12 +2,12 @@
 
 #include"Src/Application/Scene/BaseScene.h"
 
-class TitleScene : public BaseScene
+class ResultScene :public BaseScene
 {
 public:
 
-	TitleScene() { Init(); }
-	~TitleScene()override { Release(); }
+	ResultScene() { Init(); }
+	~ResultScene()override {}
 
 	void Init()override;
 	void Update()override;
@@ -15,5 +15,5 @@ public:
 
 private:
 
-	void Release();
+	void Release()override;
 };

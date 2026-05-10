@@ -12,6 +12,7 @@ public:
 	void Init()		override;
 	void Update()	override;
 	void Draw()		override;
+	void OnHit()	override;
 
 	//“G‚Æ‚Ì“–‚½‚è”»’è
 	void EnemyHit();
@@ -25,6 +26,9 @@ private:
 
 	void Release()	override;
 
+	static const int	m_MaxLife = 3;
+
+	int		m_Life;				//Žc‹@
 	float	m_ShotInterval;		//”­ŽËŠÔŠu
 
 	GameScene* m_Owner = nullptr;

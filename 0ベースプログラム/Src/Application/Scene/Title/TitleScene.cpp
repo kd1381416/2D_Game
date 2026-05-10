@@ -21,3 +21,8 @@ void TitleScene::Draw()
 	SHADER.m_spriteShader.SetMatrix(Math::Matrix::Identity);
 	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle{ 0,0,1280,720 });
 }
+
+void TitleScene::Release()
+{
+	m_Tex.Release();
+}

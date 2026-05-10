@@ -10,6 +10,7 @@ void Player::Init()
 {
 	m_Tex.Load("Texture/Game/player.png");
 	m_Mat = Math::Matrix::Identity;
+	m_Life = m_MaxLife;
 	m_Pos = { 0,0 };
 	m_Speed = 10.0f;
 	m_ShotInterval = 15.0f;
@@ -66,6 +67,16 @@ void Player::Draw()
 	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle{ 0,0,64,64 });
 }
 
+void Player::OnHit()
+{
+	--m_Life;
+
+	if (m_Life <= 0)
+	{
+		m_Active = false;
+	}
+}
+
 void Player::EnemyHit()
 {
 	//===当たり判定(プレイヤー vs 敵)===
@@ -83,6 +94,9 @@ void Player::EnemyHit()
 			{
 				//Hit時の処理を行う
 				obj->OnHit();
+				OnHit();
+
+				break;
 			}
 		}
 	}

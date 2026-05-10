@@ -12,7 +12,7 @@ public:
 	virtual void Draw();
 
 protected:
-	 void Release();
+	 virtual void Release();
 
 	 KdTexture	m_Tex;
 };

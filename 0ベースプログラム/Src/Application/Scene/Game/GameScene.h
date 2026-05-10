@@ -9,7 +9,7 @@ class GameScene : public BaseScene
 public:
 
 	GameScene() { Init(); }
-	~GameScene()override {}
+	~GameScene()override { Release(); }
 
 	void Init()override;
 	void Update()override;
@@ -30,6 +30,7 @@ public:
 
 private:
 
+	void Release()override;
 	std::shared_ptr<BaseObject>	m_Enemy;
 
 	std::vector<std::shared_ptr<BaseObject>>	m_ObjList;

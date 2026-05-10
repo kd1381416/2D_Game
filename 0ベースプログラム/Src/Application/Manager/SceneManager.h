@@ -12,7 +12,8 @@ public:
 	enum SceneType
 	{
 		Title,
-		Game
+		Game,
+		Result,
 	};
 
 	//Update‚Ì‘O‚ÉÀs‚·‚éUpdate
