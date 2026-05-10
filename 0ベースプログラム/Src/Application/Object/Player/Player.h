@@ -13,6 +13,12 @@ public:
 	void Update()	override;
 	void Draw()		override;
 
+	//“G‚Æ‚Ì“–‚½‚è”»’è
+	void EnemyHit();
+
+	//’e‚Æ“G‚Ì“–‚½‚è”»’è
+	void BulletEnemyHIt();
+
 	//ownerî•ñ‚ğƒZƒbƒg
 	void SetOwner(GameScene* _owner) { m_Owner = _owner; }
 private:

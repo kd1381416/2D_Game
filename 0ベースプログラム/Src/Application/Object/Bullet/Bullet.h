@@ -2,6 +2,8 @@
 
 #include"Src/Application/Object/BaseObject.h"
 
+class GaneScene;
+
 class Bullet : public BaseObject
 {
 public:
@@ -19,8 +21,6 @@ public:
 	void SetPos(Math::Vector2 _pos) { m_Pos = _pos; }
 
 private:
-
-	
 
 	void Release()override;
 

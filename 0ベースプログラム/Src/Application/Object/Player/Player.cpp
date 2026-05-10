@@ -47,6 +47,27 @@ void Player::Update()
 		}
 	}
 
+	//===敵との当たり判定===
+	EnemyHit();
+
+	//===弾と敵の当たり判定===
+	BulletEnemyHIt();
+
+	//弾のインターバル減少
+	--m_ShotInterval;
+	
+	//===行列作成===
+	m_Mat = Math::Matrix::CreateTranslation(m_Pos.x, m_Pos.y, 1.0f);
+}
+
+void Player::Draw()
+{
+	SHADER.m_spriteShader.SetMatrix(m_Mat);
+	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle{ 0,0,64,64 });
+}
+
+void Player::EnemyHit()
+{
 	//===当たり判定(プレイヤー vs 敵)===
 	for (auto& obj : m_Owner->GetObjList())
 	{
@@ -65,18 +86,38 @@ void Player::Update()
 			}
 		}
 	}
-
-	//弾のインターバル減少
-	--m_ShotInterval;
-	
-	//===行列作成===
-	m_Mat = Math::Matrix::CreateTranslation(m_Pos.x, m_Pos.y, 1.0f);
 }
 
-void Player::Draw()
+void Player::BulletEnemyHIt()
 {
-	SHADER.m_spriteShader.SetMatrix(m_Mat);
-	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle{ 0,0,64,64 });
+	//===当たり判定(弾 vs 敵)===
+	for (auto& obj : m_Owner->GetObjList())
+	{
+		//オブジェクトリストの中から(敵)とだけ当たり判定する
+		if (obj->GetObjType() == ObjectType::Bullet)
+		{
+			//対象の座標(ベクトル)をとる
+			Math::Vector2 b;
+			b = obj->GetPos();
+
+			for (auto& obj2 : m_Owner->GetObjList())
+			{
+				if (obj2->GetObjType() == ObjectType::Enemy)
+				{
+					Math::Vector2 v;
+					v = obj2->GetPos() - b;
+
+					//球判定(ベクトルの長さで判定)
+					if (v.Length() < 32.0f)
+					{
+						//Hit時の処理を行う
+						obj->OnHit();
+						obj2->OnHit();
+					}
+				}
+			}
+		}
+	}
 }
 
 void Player::Release()
