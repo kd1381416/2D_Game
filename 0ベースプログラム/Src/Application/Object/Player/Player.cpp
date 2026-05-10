@@ -64,7 +64,7 @@ void Player::Update()
 void Player::Draw()
 {
 	SHADER.m_spriteShader.SetMatrix(m_Mat);
-	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle{ 0,0,64,64 });
+	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle{ 0,0,128,128 });
 }
 
 void Player::OnHit()

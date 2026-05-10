@@ -64,6 +64,25 @@ public:
 		}
 		return false;
 	}
+
+	//’P‰Ÿ‚µˆù‚Ý
+	bool ClickMouseLeft()
+	{
+		if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
+		{
+			if (!MouseLeftFlg)
+			{
+				MouseLeftFlg = true;
+				return true;
+			}
+		}
+		else
+		{
+			MouseLeftFlg = false;
+		}
+		return false;
+	}
+
 private:
 	KeyManager()
 	{
@@ -72,4 +91,7 @@ private:
 
 	//Enter
 	bool EnterFlg = false;
+
+	//RightClick
+	bool MouseLeftFlg = false;
 };

@@ -30,7 +30,7 @@ protected:
 	virtual void Release();
 
 	static const int	ScrWidth = 1280;
-	static const int	ScrHeght = 720;
+	static const int	ScrHeight = 720;
 
 	static const int	ScrTop		= 360;
 	static const int	ScrBittom	= -360;

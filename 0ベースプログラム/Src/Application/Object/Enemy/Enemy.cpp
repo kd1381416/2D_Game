@@ -3,7 +3,7 @@
 void Enemy::Init()
 {
 	m_Tex.Load("Texture/Game/enemy.png");
-	int random = rand() % ((ScrHeght * 2) + 1) - (ScrHeght / 2);
+	int random = rand() % ((ScrHeight * 2) + 1) - (ScrHeight / 2);
 	m_Pos = { ScrRight + 10.0, (float)random };
 	m_Speed = 1.0f;
 	m_Active = true;
