@@ -31,5 +31,12 @@ private:
 	int		m_Life;				//Žc‹@
 	float	m_ShotInterval;		//”­ŽËŠÔŠu
 
+	//”í’e‚µ‚½‚Æ‚«
+	KdTexture	m_HitTex;
+	bool		m_HitFlg;
+	int			m_TexSleep;
+	int			m_TexCnt;
+
+
 	GameScene* m_Owner = nullptr;
 };

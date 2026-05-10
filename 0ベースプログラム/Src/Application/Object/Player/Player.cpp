@@ -9,11 +9,15 @@
 void Player::Init()
 {
 	m_Tex.Load("Texture/Game/player.png");
+	m_HitTex.Load("Texture/Game/playerhit.png");
 	m_Mat = Math::Matrix::Identity;
 	m_Life = m_MaxLife;
 	m_Pos = { 0,0 };
 	m_Speed = 10.0f;
 	m_ShotInterval = 15.0f;
+	m_TexCnt = 0;
+	m_TexSleep = 10;
+	m_HitFlg = false;
 	m_Active = true;
 
 	m_ObjectType = ObjectType::Player;
@@ -63,13 +67,40 @@ void Player::Update()
 
 void Player::Draw()
 {
-	SHADER.m_spriteShader.SetMatrix(m_Mat);
-	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle{ 0,0,128,128 });
+	if (m_HitFlg)
+	{	
+		if (m_TexSleep <= 0)
+		{
+			SHADER.m_spriteShader.SetMatrix(m_Mat);
+			SHADER.m_spriteShader.DrawTex(&m_HitTex, Math::Rectangle{ 0,0,128,128 });
+			++m_TexCnt;
+			m_TexSleep = 10;
+		}
+		else
+		{
+			SHADER.m_spriteShader.SetMatrix(m_Mat);
+			SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle{ 0,0,128,128 });
+			--m_TexSleep;
+		}
+
+		if (m_TexCnt >= 10)
+		{
+			m_HitFlg = false;
+			m_TexCnt = 0;
+		}
+	}
+	else
+	{
+		SHADER.m_spriteShader.SetMatrix(m_Mat);
+		SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle{ 0,0,128,128 });
+	}
 }
 
 void Player::OnHit()
 {
 	--m_Life;
+
+	m_HitFlg = true;
 
 	if (m_Life <= 0)
 	{
@@ -94,7 +125,10 @@ void Player::EnemyHit()
 			{
 				//HitŽž‚Ìˆ—‚ðs‚¤
 				obj->OnHit();
-				OnHit();
+				if(!m_HitFlg)
+				{
+					OnHit();
+				}
 
 				break;
 			}
