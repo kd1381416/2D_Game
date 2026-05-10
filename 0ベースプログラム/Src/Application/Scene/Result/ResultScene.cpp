@@ -5,6 +5,7 @@
 
 void ResultScene::Init()
 {
+	
 }
 
 void ResultScene::Update()
