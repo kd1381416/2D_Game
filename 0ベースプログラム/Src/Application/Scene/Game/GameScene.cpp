@@ -14,7 +14,6 @@ void GameScene::Init()
 	player->SetOwner(this);
 	m_ObjList.push_back(player);
 
-	m_ObjList.push_back(std::make_shared<Enemy>());
 
 	m_Back1Tex.Load("Texture/Game/BackGround.png");
 	m_Back1Pos = {};
@@ -25,8 +24,7 @@ void GameScene::Init()
 
 void GameScene::Update()
 {
-
-	//オブジェクトリストの整理
+	//===オブジェクトリストの整理===
 	auto it = m_ObjList.begin();
 
 	while (it != m_ObjList.end())
@@ -43,13 +41,20 @@ void GameScene::Update()
 		}
 	}
 
-	//全オブジェクトの更新関数を呼ぶ
+	//敵をランダムで出す
+	if(int i = rand()% 100 <= 2)
+	{
+		m_ObjList.push_back(std::make_shared<Enemy>());
+	}
+
+
+	//===全オブジェクトの更新関数を呼ぶ===
 	for (int i = 0; i < m_ObjList.size(); i++)
 	{
 		m_ObjList[i]->Update();
 	}
 
-	//背景処理(横スクロール)
+	//===背景処理(横スクロール)===
 	m_Back1Pos -= {1, 0};
 	m_Back2Pos -= {1, 0};
 	if (m_Back1Pos.x <= -1280) { m_Back1Pos = { 1280,0 }; }
@@ -60,6 +65,7 @@ void GameScene::Update()
 		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title);
 	}
 
+	//===行列作成===
 	m_Back1Mat = Math::Matrix::CreateTranslation(m_Back1Pos.x, m_Back1Pos.y, 0.0f);
 	m_Back2Mat = Math::Matrix::CreateTranslation(m_Back2Pos.x, m_Back2Pos.y, 0.0f);
 }
