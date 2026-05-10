@@ -65,7 +65,7 @@ public:
 		return false;
 	}
 
-	//単押し飲み
+	//単押しのみ
 	bool ClickMouseLeft()
 	{
 		if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
@@ -83,6 +83,42 @@ public:
 		return false;
 	}
 
+	//単押しのみ
+	bool ClickUp()
+	{
+		if (GetAsyncKeyState(VK_UP) & 0x8000)
+		{
+			if (!UpFlg)
+			{
+				UpFlg = true;
+				return true;
+			}
+		}
+		else
+		{
+			UpFlg = false;
+		}
+		return false;
+	}
+
+	//単押しのみ
+	bool ClickDown()
+	{
+		if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+		{
+			if (!DownFlg)
+			{
+				DownFlg = true;
+				return true;
+			}
+		}
+		else
+		{
+			DownFlg = false;
+		}
+		return false;
+	}
+
 private:
 	KeyManager()
 	{
@@ -94,4 +130,10 @@ private:
 
 	//RightClick
 	bool MouseLeftFlg = false;
+
+	//Up
+	bool UpFlg = false;
+
+	//Down
+	bool DownFlg = false;
 };

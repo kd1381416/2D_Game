@@ -14,9 +14,11 @@ void TitleScene::Init()
 
 	m_StartTex.Load("Texture/Title/Start.png");
 	m_StartPos = { 0,-100 };
+	m_StartFlg = true;
 
 	m_ExitTex.Load("Texture/Title/Exit.png");
 	m_ExitPos = { 0,-230 };
+	m_ExitFlg = false;
 }
 
 void TitleScene::Update()
@@ -27,17 +29,45 @@ void TitleScene::Update()
 	m_MousePos.y -= ScrHeight / 2;
 	m_MousePos.y *= -1;
 
-	if (StartHit())
+	if (m_ExitFlg && KeyManager::Instance().ClickUp())
 	{
-		if(KeyManager::Instance().ClickMouseLeft())
+		m_StartFlg = true;
+		m_ExitFlg = false;
+	}
+
+	if (m_StartFlg && KeyManager::Instance().ClickDown())
+	{
+		m_ExitFlg = true;
+		m_StartFlg = false;
+	}
+
+	//if (StartHit() || m_StartFlg)
+	//{
+	//	if(KeyManager::Instance().ClickMouseLeft() || KeyManager::Instance().ClickEnter())
+	//	{
+	//		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Game);
+	//	}
+	//}
+
+	//if (ExitHit() || m_ExitFlg)
+	//{
+	//	if (KeyManager::Instance().ClickMouseLeft() || KeyManager::Instance().ClickEnter())
+	//	{
+	//		APP.End();
+	//	}
+	//}
+
+	if (m_StartFlg)
+	{
+		if (KeyManager::Instance().ClickEnter())
 		{
 			SceneManager::Instance().SetNextScene(SceneManager::SceneType::Game);
 		}
 	}
 
-	if (ExitHit())
+	if (m_ExitFlg)
 	{
-		if (KeyManager::Instance().ClickMouseLeft())
+		if (KeyManager::Instance().ClickEnter())
 		{
 			APP.End();
 		}
@@ -76,13 +106,25 @@ void TitleScene::Draw()
 	SHADER.m_spriteShader.DrawTex(&m_ExitTex, Math::Rectangle{ 0,0,150,50 });
 
 
-	if(StartHit())
+	//if(StartHit() || m_StartFlg)
+	//{
+	//	SHADER.m_spriteShader.SetMatrix(Math::Matrix::Identity);
+	//	SHADER.m_spriteShader.DrawBox(-5, -105, 130, 50, &Math::Color{ 1,1,1,1 }, false);
+	//}
+
+	//if (ExitHit() || m_ExitFlg)
+	//{
+	//	SHADER.m_spriteShader.SetMatrix(Math::Matrix::Identity);
+	//	SHADER.m_spriteShader.DrawBox(-5, -235, 130, 50, &Math::Color{ 1,1,1,1 }, false);
+	//}
+
+	if (m_StartFlg)
 	{
 		SHADER.m_spriteShader.SetMatrix(Math::Matrix::Identity);
 		SHADER.m_spriteShader.DrawBox(-5, -105, 130, 50, &Math::Color{ 1,1,1,1 }, false);
 	}
 
-	if (ExitHit())
+	if (m_ExitFlg)
 	{
 		SHADER.m_spriteShader.SetMatrix(Math::Matrix::Identity);
 		SHADER.m_spriteShader.DrawBox(-5, -235, 130, 50, &Math::Color{ 1,1,1,1 }, false);
@@ -96,6 +138,7 @@ bool TitleScene::StartHit()
 	{
 		if (m_MousePos.y <= StartHitTop && m_MousePos.y >= StartHitBottom)
 		{
+			m_ExitFlg = false;
 			return true;
 		}
 		else { return false; }
@@ -109,9 +152,11 @@ bool TitleScene::ExitHit()
 	{
 		if (m_MousePos.y <= ExitHitTop && m_MousePos.y >= ExitHitBottom)
 		{
+			m_StartFlg = false;
 			return true;
 		}
-		else { return false; }
+		else 
+		{ return false; }
 	}
 	else { return false; }
 }

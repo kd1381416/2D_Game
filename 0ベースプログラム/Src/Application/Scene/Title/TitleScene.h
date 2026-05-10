@@ -44,6 +44,7 @@ private:
 	Math::Matrix	m_StartMat;
 	Math::Matrix	m_StartTransMat;
 	Math::Matrix	m_StartScaleMat;
+	bool			m_StartFlg;
 
 	static const int	ExitHitTop = -185;
 	static const int	ExitHitBottom = -285;
@@ -55,5 +56,5 @@ private:
 	Math::Matrix	m_ExitMat;
 	Math::Matrix	m_ExitTransMat;
 	Math::Matrix	m_ExitScaleMat;
-
+	bool			m_ExitFlg;
 };
