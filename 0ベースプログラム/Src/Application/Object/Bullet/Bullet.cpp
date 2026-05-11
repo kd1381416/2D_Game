@@ -2,9 +2,9 @@
 
 void Bullet::Init()
 {
-	m_Tex.Load("Texture/Game/bullet.png");
+	m_Tex.Load("Texture/Game/Bullet.png");
 	m_Pos = {};
-	m_Speed = 15.0f;
+	m_Speed = 20.0f;
 	m_Active = true;
 	m_ObjectType = ObjectType::Bullet;
 }
@@ -25,7 +25,7 @@ void Bullet::Draw()
 	if (!m_Active)return;
 
 	SHADER.m_spriteShader.SetMatrix(m_Mat);
-	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle(0, 0, 13, 37));
+	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle(0, 0, 128, 128));
 }
 
 void Bullet::OnHit()

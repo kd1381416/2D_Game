@@ -7,6 +7,8 @@ void ResultScene::Init()
 {
 	m_Tex.Load("Texture/Result/ResultBack.png");
 	m_ResultTex.Load("Texture/Result/result.png");
+
+	m_EnemyDeathCnt = SceneManager::Instance().GetEnemyCnt();
 }
 
 void ResultScene::Update()
@@ -33,6 +35,13 @@ void ResultScene::Draw()
 
 	SHADER.m_spriteShader.SetMatrix(m_ResultMat);
 	SHADER.m_spriteShader.DrawTex(&m_ResultTex, Math::Rectangle(0, 0, 750, 250));
+
+	SHADER.m_spriteShader.SetMatrix(Math::Matrix::Identity);
+	char text[200];
+	sprintf_s(text, sizeof(text), "Score:%d", m_EnemyDeathCnt);
+	SHADER.m_spriteShader.DrawString(0, 0, text, { 1,1,1,1 });
+
+	SceneManager::Instance().DrawEndBegin();
 }
 
 void ResultScene::Release()

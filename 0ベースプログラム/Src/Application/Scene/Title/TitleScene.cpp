@@ -19,6 +19,8 @@ void TitleScene::Init()
 	m_ExitTex.Load("Texture/Title/Exit.png");
 	m_ExitPos = { 0,-230 };
 	m_ExitFlg = false;
+
+	//SceneManager::Instance().ResetEnemyCnt();
 }
 
 void TitleScene::Update()

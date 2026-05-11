@@ -2,7 +2,7 @@
 
 void Enemy::Init()
 {
-	m_Tex.Load("Texture/Game/enemy.png");
+	m_Tex.Load("Texture/Game/Enemy.png");
 	int random = rand() % ((ScrHeight * 2) + 1) - (ScrHeight / 2);
 	m_Pos = { ScrRight + 10.0, (float)random };
 	m_Speed = 1.0f;
@@ -19,13 +19,15 @@ void Enemy::Update()
 	m_Pos.x -= m_Speed;
 
 	//çsóÒçÏê¨
-	m_Mat = Math::Matrix::CreateTranslation(m_Pos.x, m_Pos.y, 0.0f);
+	m_TransMat = Math::Matrix::CreateTranslation(m_Pos.x, m_Pos.y, 0.0f);
+	m_ScaleMat = Math::Matrix::CreateScale(-1, 1, 1);
+	m_Mat = m_ScaleMat * m_TransMat;
 }
 
 void Enemy::Draw()
 {
 	SHADER.m_spriteShader.SetMatrix(m_Mat);
-	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle(0, 0, 64, 64));
+	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle(0, 0, 128, 128));
 }
 
 void Enemy::OnHit()

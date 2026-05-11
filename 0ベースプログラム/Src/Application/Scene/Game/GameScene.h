@@ -3,6 +3,7 @@
 #include"Src/Application/Scene/BaseScene.h"
 
 class BaseObject;
+class ResultScene;
 
 class GameScene : public BaseScene
 {
@@ -28,12 +29,16 @@ public:
 		m_ObjList.push_back(_obj);
 	}
 
+	//“G‚ª€‚ñ‚¾‚Æ‚«‚É”‚ğ‘‚â‚·
+	void AddEnemyDeathCnt() { ++m_EnemyDeathCnt; }
+
 private:
 
 	void Release()override;
-	std::shared_ptr<BaseObject>	m_Enemy;
 
 	std::vector<std::shared_ptr<BaseObject>>	m_ObjList;
+
+	std::shared_ptr<ResultScene>	m_Result;
 
 	//===”wŒi===
 	KdTexture		m_Back1Tex;
@@ -43,5 +48,8 @@ private:
 	KdTexture		m_Back2Tex;
 	Math::Vector2	m_Back2Pos;
 	Math::Matrix	m_Back2Mat;
+
+	//Enemy‚ğ“|‚µ‚½”
+	int		m_EnemyDeathCnt;
 
 };

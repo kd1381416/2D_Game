@@ -48,7 +48,7 @@ void Player::Update()
 			bullet = std::make_shared<Bullet>();
 			bullet->SetPos(m_Pos);
 			m_Owner->AddObject(bullet);
-			m_ShotInterval = 15.0f;
+			m_ShotInterval = 10.0f;
 		}
 	}
 
@@ -129,7 +129,6 @@ void Player::EnemyHit()
 				{
 					OnHit();
 				}
-
 				break;
 			}
 		}
@@ -161,6 +160,7 @@ void Player::BulletEnemyHIt()
 						//HitŽž‚Ìˆ—‚ðs‚¤
 						obj->OnHit();
 						obj2->OnHit();
+						m_Owner->AddEnemyDeathCnt();
 					}
 				}
 			}

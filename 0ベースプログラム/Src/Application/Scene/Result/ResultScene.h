@@ -7,15 +7,19 @@ class ResultScene :public BaseScene
 public:
 
 	ResultScene() { Init(); }
-	~ResultScene()override {}
+	~ResultScene()override { Release(); }
 
 	void Init()override;
 	void Update()override;
 	void Draw()override;
+	
+	void SetEnemyDeathCnt(int _cnt) { m_EnemyDeathCnt = _cnt; }
 
 private:
 
 	void Release()override;
+
+	int		m_EnemyDeathCnt;
 
 	Math::Matrix	m_TransMat;
 	Math::Matrix	m_ScaleMat;

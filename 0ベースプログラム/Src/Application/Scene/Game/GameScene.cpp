@@ -1,4 +1,5 @@
 #include"GameScene.h"
+#include"Src/Application/Scene/Result/ResultScene.h"
 
 #include"Src/Application/Manager/SceneManager.h"
 #include"Src/Application/Manager/KeyManager/KeyManager.h"
@@ -15,12 +16,13 @@ void GameScene::Init()
 	player->SetOwner(this);
 	m_ObjList.push_back(player);
 
+	m_Result = std::make_shared<ResultScene>();
 
-	m_Back1Tex.Load("Texture/Game/BackGround.png");
+	m_EnemyDeathCnt = 0;
+
+	m_Tex.Load("Texture/Game/BackGround.png");
 	m_Back1Pos = {};
-
-	m_Back2Tex.Load("Texture/Game/BackGround.png");
-	m_Back2Pos = { m_Back1Pos.x + 1280,m_Back1Pos.y };
+	m_Back2Pos = { m_Back1Pos.x + ScrWidth,m_Back1Pos.y };
 }
 
 void GameScene::Update()
@@ -33,9 +35,9 @@ void GameScene::Update()
 		// オブジェクトの有効チェック
 		if ((*it)->GetAliveFlg() == false)
 		{
-
 			if ((*it)->GetObjType() == BaseObject::ObjectType::Player)
 			{
+				SceneManager::Instance().SetEnemyCnt(m_EnemyDeathCnt);
 				SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result);
 			}
 
@@ -75,17 +77,16 @@ void GameScene::Update()
 void GameScene::Draw()	
 {
 	SHADER.m_spriteShader.SetMatrix(m_Back1Mat);
-	SHADER.m_spriteShader.DrawTex(&m_Back1Tex, Math::Rectangle(0, 0, 1280, 720));
+	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle(0, 0, 1280, 720));
 
 	SHADER.m_spriteShader.SetMatrix(m_Back2Mat);
-	SHADER.m_spriteShader.DrawTex(&m_Back2Tex, Math::Rectangle(0, 0, 1280, 720));
+	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle(0, 0, 1280, 720));
 
 	//全オブジェクトの描画関数を呼ぶ
 	for (int i = 0; i < m_ObjList.size(); i++)
 	{
 		m_ObjList[i]->Draw();
 	}
-
 }
 
 void GameScene::Release()

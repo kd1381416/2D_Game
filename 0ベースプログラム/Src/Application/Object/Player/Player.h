@@ -31,6 +31,7 @@ private:
 	int		m_Life;				//Žc‹@
 	float	m_ShotInterval;		//”­ŽËŠÔŠu
 
+
 	//”í’e‚µ‚½‚Æ‚«
 	KdTexture	m_HitTex;
 	bool		m_HitFlg;

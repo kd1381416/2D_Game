@@ -18,4 +18,7 @@ public:
 private:
 
 	void Release()	override;
+
+	Math::Matrix	m_TransMat;
+	Math::Matrix	m_ScaleMat;
 };

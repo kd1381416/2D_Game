@@ -35,6 +35,20 @@ public:
 		return m_CurrentSceneType;
 	}
 
+	void SetEnemyCnt(int _cnt)
+	{
+		EnemyCnt = _cnt;
+	}
+
+	int GetEnemyCnt() { return EnemyCnt; }
+
+	void ResetEnemyCnt() { EnemyCnt = 0; }
+
+	void DrawEndBegin()
+	{
+		SHADER.m_spriteShader.End();
+		SHADER.m_spriteShader.Begin();
+	}
 private:
 
 	//初期化や解放は自分でする
@@ -50,6 +64,9 @@ private:
 	SceneType	m_CurrentSceneType = SceneType::Title;
 	//次のシーンを管理するフラグ変数
 	SceneType	m_NextSceneType = m_CurrentSceneType;
+
+	int EnemyCnt;
+
 
 	//シングルトンパターン(デザインパターン)
 	//実体がひとつしかないことを証明するためのパターン
