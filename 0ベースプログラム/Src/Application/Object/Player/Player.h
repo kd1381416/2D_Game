@@ -20,8 +20,12 @@ public:
 	//弾と敵の当たり判定
 	void BulletEnemyHIt();
 
+	//キャラの移動
+	void PlayerMove();
+
 	//owner情報をセット
 	void SetOwner(GameScene* _owner) { m_Owner = _owner; }
+
 private:
 
 	void Release()	override;

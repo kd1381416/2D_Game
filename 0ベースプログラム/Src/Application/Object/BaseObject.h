@@ -7,8 +7,9 @@ public:
 	{
 		None,	//タイプ無し
 		Player,	//プレイヤー
-		Enemy,	//エネミー
 		Bullet,	//弾
+		Enemy,	//エネミー
+		EnemyBullet	//敵の弾
 	};
 
 	BaseObject() { Init(); }
@@ -33,7 +34,7 @@ protected:
 	static const int	ScrHeight = 720;
 
 	static const int	ScrTop		= 360;
-	static const int	ScrBittom	= -360;
+	static const int	ScrBottom	= -360;
 	static const int	ScrRight	= 640;
 	static const int	ScrLeft		= -640;
 

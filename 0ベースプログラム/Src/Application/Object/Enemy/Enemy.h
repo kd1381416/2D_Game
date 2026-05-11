@@ -2,6 +2,8 @@
 
 #include"Src/Application/Object/BaseObject.h"
 
+class GameScene;
+
 class Enemy : public BaseObject
 {
 public:
@@ -15,9 +17,27 @@ public:
 
 	void OnHit()	override;
 
+	void Shot();
+
+	//ownerèÓïÒÇÉZÉbÉg
+	void SetOwner(GameScene* _owner) { m_Owner = _owner; }
+
 private:
 
 	void Release()	override;
+
+	GameScene*		m_Owner=nullptr;
+
+	int				m_FarstMove;
+
+	int				m_ShotInterval;
+	int				m_ShotCnt;
+	int				m_RandMove;
+	int				m_MoveTime;
+	int				m_MoveDir;
+
+	int				m_MoveInterval;
+
 
 	Math::Matrix	m_TransMat;
 	Math::Matrix	m_ScaleMat;

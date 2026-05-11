@@ -29,6 +29,9 @@ public:
 		m_ObjList.push_back(_obj);
 	}
 
+	//Updateの最初にListの名k身をチェックし、Flgがfalseのものを消す
+	void ListCheck();
+
 	//敵が死んだときに数を増やす
 	void AddEnemyDeathCnt() { ++m_EnemyDeathCnt; }
 

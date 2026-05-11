@@ -1,12 +1,22 @@
 #include"Enemy.h"
 
+#include"Src/Application/Scene/Game/GameScene.h"
+
+#include"Src/Application/Object/EnemyBullet/EnemyBullet.h"
+
 void Enemy::Init()
 {
 	m_Tex.Load("Texture/Game/Enemy.png");
-	int random = rand() % ((ScrHeight * 2) + 1) - (ScrHeight / 2);
+	int random = rand() % ((ScrHeight - 128) * 2) - (((ScrHeight - 128) / 2) + 1);
 	m_Pos = { ScrRight + 10.0, (float)random };
-	m_Speed = 1.0f;
+	m_Speed = 10.0f;
+	m_FarstMove = 50;
+	m_ShotInterval = 20;
+	m_ShotCnt = 0;
+	m_RandMove = rand() % 100;
+	m_MoveTime = 20;
 	m_Active = true;
+	m_MoveInterval = 60;
 	m_ObjectType = ObjectType::Enemy;
 }
 
@@ -15,8 +25,70 @@ void Enemy::Update()
 	//生きていなかったら実行しない
 	if (!m_Active)return;
 
-	//敵移動処理
-	m_Pos.x -= m_Speed;
+
+	if(m_FarstMove > 0)	//ここまで移動させる
+	{
+		//敵移動処理
+		m_Pos.x -= m_Speed;
+	}
+	else
+	{
+		m_Speed = 10;
+
+		if(m_MoveInterval<=0)
+		{
+			if (m_MoveTime <= 0)
+			{
+				m_MoveTime = 10;
+				m_MoveInterval = 60;
+				m_MoveDir = rand() % 4;
+			}
+
+			switch (m_MoveDir)
+			{
+			case 0:
+				m_Pos.x += m_Speed;
+				break;
+			case 1:
+				m_Pos.x -= m_Speed;
+				break;
+			case 2:
+				m_Pos.y += m_Speed;
+				break;
+			case 3:
+				m_Pos.y -= m_Speed;
+				break;
+			}
+
+			if (m_Pos.y >= ScrTop - 64) { m_MoveTime = 0; m_Speed = 0; }
+			if (m_Pos.y <= ScrBottom + 64) { m_MoveTime = 0; m_Speed = 0;}
+			if (m_Pos.x >= ScrRight - 64) { m_MoveTime = 0; m_Speed = 0;}
+			if (m_Pos.x <= ScrLeft + 64) { m_MoveTime = 0; m_Speed = 0;}
+
+			--m_MoveTime;
+		}
+
+
+		if (m_ShotInterval <= 0)
+		{
+			Shot();
+			++m_ShotCnt;
+			m_ShotInterval = 5;
+
+			if (m_ShotCnt >= 3)
+			{
+				m_ShotInterval = 100;
+				m_RandMove = rand() % 100;
+				m_ShotCnt = 0;
+			}
+		}
+			
+		--m_ShotInterval;
+		--m_MoveInterval;
+
+	}
+
+	--m_FarstMove;
 
 	//行列作成
 	m_TransMat = Math::Matrix::CreateTranslation(m_Pos.x, m_Pos.y, 0.0f);
@@ -34,6 +106,14 @@ void Enemy::OnHit()
 {
 	//Hit時は生存フラグをOFF(ゲーム画面上から消滅)
 	m_Active = false;
+}
+
+void Enemy::Shot()
+{
+	std::shared_ptr<EnemyBullet>	bullet;
+	bullet = std::make_shared<EnemyBullet>();
+	bullet->SetPos(m_Pos);
+	m_Owner->AddObject(bullet);
 }
 
 void Enemy::Release()

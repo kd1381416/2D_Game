@@ -28,16 +28,7 @@ void Player::Update()
 	if (!m_Active)return;
 
 	//===ƒLƒƒƒ‰ˆÚ“®===
-	Math::Vector2 movevec = Math::Vector2::Zero;
-	if (KeyManager::Instance().PushUp())	movevec.y =	1.0f;
-	if (KeyManager::Instance().PushDown())	movevec.y =-1.0f;
-	if (KeyManager::Instance().PushRight())	movevec.x = 1.0f;
-	if (KeyManager::Instance().PushLeft())	movevec.x =-1.0f;
-
-	//³‹K‰»
-	movevec.Normalize();
-
-	m_Pos += movevec * m_Speed;
+	PlayerMove();
 
 	//===’e”­ŽË===
 	if (KeyManager::Instance().PushSpeace())
@@ -166,6 +157,26 @@ void Player::BulletEnemyHIt()
 			}
 		}
 	}
+}
+
+void Player::PlayerMove()
+{
+	Math::Vector2 movevec = Math::Vector2::Zero;
+	if (KeyManager::Instance().PushUp())	movevec.y = 1.0f;
+	if (KeyManager::Instance().PushDown())	movevec.y = -1.0f;
+	if (KeyManager::Instance().PushRight())	movevec.x = 1.0f;
+	if (KeyManager::Instance().PushLeft())	movevec.x = -1.0f;
+
+	//³‹K‰»
+	movevec.Normalize();
+
+	m_Pos += movevec * m_Speed;
+
+	if (m_Pos.y >= ScrTop - 32) { m_Pos.y = ScrTop - 32; }
+	if (m_Pos.y <= ScrBottom + 32) { m_Pos.y = ScrBottom + 32; }
+	if (m_Pos.x >= ScrRight - 64) { m_Pos.x = ScrRight - 64; }
+	if (m_Pos.x <= ScrLeft + 64) { m_Pos.x = ScrLeft + 64; }
+
 }
 
 void Player::Release()

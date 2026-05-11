@@ -16,6 +16,12 @@ void GameScene::Init()
 	player->SetOwner(this);
 	m_ObjList.push_back(player);
 
+	//std::shared_ptr<Enemy>	enemy;
+	//enemy = std::make_shared<Enemy>();
+	//enemy->Init();
+	//enemy->SetOwner(this);
+	//m_ObjList.push_back(enemy);
+
 	m_Result = std::make_shared<ResultScene>();
 
 	m_EnemyDeathCnt = 0;
@@ -26,6 +32,53 @@ void GameScene::Init()
 }
 
 void GameScene::Update()
+{
+	ListCheck();
+
+	//敵をランダムで出す
+	if(int i = rand()% 100 <= 2)
+	{
+		std::shared_ptr<Enemy>	enemy;
+		enemy = std::make_shared<Enemy>();
+		enemy->Init();
+		enemy->SetOwner(this);
+		m_ObjList.push_back(enemy);
+	}
+
+
+	//===全オブジェクトの更新関数を呼ぶ===
+	for (int i = 0; i < m_ObjList.size(); i++)
+	{
+		m_ObjList[i]->Update();
+	}
+
+	//===背景処理(横スクロール)===
+	m_Back1Pos -= {8, 0};
+	m_Back2Pos -= {8, 0};
+	if (m_Back1Pos.x <= -1280) { m_Back1Pos = { 1280,0 }; }
+	if (m_Back2Pos.x <= -1280) { m_Back2Pos = { 1280,0 }; }
+
+	//===行列作成===
+	m_Back1Mat = Math::Matrix::CreateTranslation(m_Back1Pos.x, m_Back1Pos.y, 0.0f);
+	m_Back2Mat = Math::Matrix::CreateTranslation(m_Back2Pos.x, m_Back2Pos.y, 0.0f);
+}
+
+void GameScene::Draw()	
+{
+	SHADER.m_spriteShader.SetMatrix(m_Back1Mat);
+	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle(0, 0, 1280, 720));
+
+	SHADER.m_spriteShader.SetMatrix(m_Back2Mat);
+	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle(0, 0, 1280, 720));
+
+	//全オブジェクトの描画関数を呼ぶ
+	for (int i = 0; i < m_ObjList.size(); i++)
+	{
+		m_ObjList[i]->Draw();
+	}
+}
+
+void GameScene::ListCheck()
 {
 	//===オブジェクトリストの整理===
 	auto it = m_ObjList.begin();
@@ -50,43 +103,6 @@ void GameScene::Update()
 		}
 	}
 
-	//敵をランダムで出す
-	if(int i = rand()% 100 <= 2)
-	{
-		m_ObjList.push_back(std::make_shared<Enemy>());
-	}
-
-
-	//===全オブジェクトの更新関数を呼ぶ===
-	for (int i = 0; i < m_ObjList.size(); i++)
-	{
-		m_ObjList[i]->Update();
-	}
-
-	//===背景処理(横スクロール)===
-	m_Back1Pos -= {1, 0};
-	m_Back2Pos -= {1, 0};
-	if (m_Back1Pos.x <= -1280) { m_Back1Pos = { 1280,0 }; }
-	if (m_Back2Pos.x <= -1280) { m_Back2Pos = { 1280,0 }; }
-
-	//===行列作成===
-	m_Back1Mat = Math::Matrix::CreateTranslation(m_Back1Pos.x, m_Back1Pos.y, 0.0f);
-	m_Back2Mat = Math::Matrix::CreateTranslation(m_Back2Pos.x, m_Back2Pos.y, 0.0f);
-}
-
-void GameScene::Draw()	
-{
-	SHADER.m_spriteShader.SetMatrix(m_Back1Mat);
-	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle(0, 0, 1280, 720));
-
-	SHADER.m_spriteShader.SetMatrix(m_Back2Mat);
-	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle(0, 0, 1280, 720));
-
-	//全オブジェクトの描画関数を呼ぶ
-	for (int i = 0; i < m_ObjList.size(); i++)
-	{
-		m_ObjList[i]->Draw();
-	}
 }
 
 void GameScene::Release()
