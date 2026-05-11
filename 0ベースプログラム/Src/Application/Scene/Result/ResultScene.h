@@ -16,4 +16,12 @@ public:
 private:
 
 	void Release()override;
+
+	Math::Matrix	m_TransMat;
+	Math::Matrix	m_ScaleMat;
+
+	KdTexture		m_ResultTex;
+	Math::Matrix	m_ResultTransMat;
+	Math::Matrix	m_ResultScaleMat;
+	Math::Matrix	m_ResultMat;
 };

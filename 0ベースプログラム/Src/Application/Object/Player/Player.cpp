@@ -171,4 +171,5 @@ void Player::BulletEnemyHIt()
 void Player::Release()
 {
 	m_Tex.Release();
+	m_HitTex.Release();
 }

@@ -73,6 +73,12 @@ void TitleScene::Update()
 		}
 	}
 
+
+	if (GetAsyncKeyState('E') & 0x8000)
+	{
+		SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result);
+	}
+
 	m_TransMat = Math::Matrix::CreateTranslation(0, 0, 0);
 	m_ScaleMat = Math::Matrix::CreateScale(2.3f);
 	m_Mat = m_ScaleMat * m_TransMat;
@@ -164,4 +170,7 @@ bool TitleScene::ExitHit()
 void TitleScene::Release()
 {
 	m_Tex.Release();
+	m_TitleNameTex.Release();
+	m_StartTex.Release();
+	m_ExitTex.Release();
 }
