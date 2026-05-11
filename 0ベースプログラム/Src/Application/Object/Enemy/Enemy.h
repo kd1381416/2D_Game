@@ -19,6 +19,8 @@ public:
 
 	void Shot();
 
+	void BulletPlayerHit();
+
 	//ownerî•ñ‚ğƒZƒbƒg
 	void SetOwner(GameScene* _owner) { m_Owner = _owner; }
 

@@ -18,6 +18,7 @@ void Scene::Update()
 void Scene::Init()
 {
 	srand(time(NULL));
+	ShowCursor(false);
 }
 
 void Scene::Release()

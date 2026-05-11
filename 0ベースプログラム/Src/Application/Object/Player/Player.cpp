@@ -89,10 +89,12 @@ void Player::Draw()
 
 void Player::OnHit()
 {
+	if (m_HitFlg)return;
+
 	--m_Life;
 
 	m_HitFlg = true;
-
+	
 	if (m_Life <= 0)
 	{
 		m_Active = false;

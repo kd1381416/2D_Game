@@ -60,8 +60,8 @@ void Enemy::Update()
 				break;
 			}
 
-			if (m_Pos.y >= ScrTop - 64) { m_MoveTime = 0; m_Speed = 0; }
-			if (m_Pos.y <= ScrBottom + 64) { m_MoveTime = 0; m_Speed = 0;}
+			if (m_Pos.y >= ScrTop) { m_Active = false; }
+			if (m_Pos.y <= ScrBottom) { m_Active = false; }
 			if (m_Pos.x >= ScrRight - 64) { m_MoveTime = 0; m_Speed = 0;}
 			if (m_Pos.x <= ScrLeft + 64) { m_MoveTime = 0; m_Speed = 0;}
 
@@ -88,6 +88,8 @@ void Enemy::Update()
 
 	}
 
+	BulletPlayerHit();
+
 	--m_FarstMove;
 
 	//行列作成
@@ -110,10 +112,42 @@ void Enemy::OnHit()
 
 void Enemy::Shot()
 {
-	std::shared_ptr<EnemyBullet>	bullet;
+	std::shared_ptr<EnemyBullet>bullet;
 	bullet = std::make_shared<EnemyBullet>();
 	bullet->SetPos(m_Pos);
 	m_Owner->AddObject(bullet);
+}
+
+void Enemy::BulletPlayerHit()
+{
+	//===当たり判定(EnemyBullet vs Player)===
+	for (auto& obj : m_Owner->GetObjList())
+	{
+		//オブジェクトリストの中から(敵)とだけ当たり判定する
+		if (obj->GetObjType() == ObjectType::EnemyBullet)
+		{
+			//対象の座標(ベクトル)をとる
+			Math::Vector2 b;
+			b = obj->GetPos();
+
+			for (auto& obj2 : m_Owner->GetObjList())
+			{
+				if (obj2->GetObjType() == ObjectType::Player)
+				{
+					Math::Vector2 v;
+					v = obj2->GetPos() - b;
+
+					//球判定(ベクトルの長さで判定)
+					if (v.Length() < 32.0f)
+					{
+						//Hit時の処理を行う
+						obj->OnHit();
+						obj2->OnHit();
+					}
+				}
+			}
+		}
+	}
 }
 
 void Enemy::Release()

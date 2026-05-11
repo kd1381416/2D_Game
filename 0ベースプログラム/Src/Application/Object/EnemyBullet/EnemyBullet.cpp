@@ -15,7 +15,7 @@ void EnemyBullet::Update()
 
 	m_Pos.x -= m_Speed;
 
-	if (m_Pos.x >= ScrRight) { m_Active = false; }
+	if (m_Pos.x <= ScrLeft) { m_Active = false; }
 
 	m_TransMat = Math::Matrix::CreateTranslation(m_Pos.x, m_Pos.y, 0.0f);
 	m_ScaleMat = Math::Matrix::CreateScale(-1, 1, 1);

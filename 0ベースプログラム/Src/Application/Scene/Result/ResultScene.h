@@ -21,6 +21,8 @@ private:
 
 	int		m_EnemyDeathCnt;
 
+
+
 	Math::Matrix	m_TransMat;
 	Math::Matrix	m_ScaleMat;
 
@@ -28,4 +30,20 @@ private:
 	Math::Matrix	m_ResultTransMat;
 	Math::Matrix	m_ResultScaleMat;
 	Math::Matrix	m_ResultMat;
+
+	KdTexture		m_ScoreTex;
+	Math::Matrix	m_ScoreTransMat;
+	Math::Matrix	m_ScoreScaleMat;
+	Math::Matrix	m_ScoreMat;
+
+	//スコア表示
+	static const int	MaxDigits = 5;
+	unsigned long		m_Score = 0;
+	int					m_Digits[MaxDigits] = {};
+
+	KdTexture		m_ScoreNumTex;
+	Math::Matrix	m_ScoreNumTransMat[MaxDigits];
+	Math::Matrix	m_ScoreNumScaleMat[MaxDigits];
+	Math::Matrix	m_ScoreNumMat[MaxDigits];
+
 };
