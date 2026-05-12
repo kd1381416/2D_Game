@@ -1,5 +1,6 @@
 #include"Player.h"
 
+#include"Src/Application/Manager/SceneManager.h"
 #include"Src/Application/Manager/KeyManager/KeyManager.h"
 
 #include"Src/Application/Scene/Game/GameScene.h"
@@ -10,6 +11,7 @@ void Player::Init()
 {
 	m_Tex.Load("Texture/Game/player.png");
 	m_HitTex.Load("Texture/Game/playerhit.png");
+	m_LifeTex.Load("Texture/Game/energy.png");
 	m_Mat = Math::Matrix::Identity;
 	m_Life = m_MaxLife;
 	m_Pos = { 0,0 };
@@ -52,8 +54,20 @@ void Player::Update()
 	//弾のインターバル減少
 	--m_ShotInterval;
 	
+	if (GetAsyncKeyState('T') & 0x8000) { SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title); }
+	if (GetAsyncKeyState('R') & 0x8000) { SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result); }
+
+
 	//===行列作成===
 	m_Mat = Math::Matrix::CreateTranslation(m_Pos.x, m_Pos.y, 1.0f);
+
+	//残機
+	for (int i = 0; i < m_Life; i++)
+	{
+		m_LifeTransMat = Math::Matrix::CreateTranslation(-600 + (64 * i), 300, 0);
+		m_LifeScaleMat = Math::Matrix::CreateScale(2.0);
+		m_LifeMat[i] = m_LifeScaleMat * m_LifeTransMat;
+	}
 }
 
 void Player::Draw()
@@ -84,6 +98,12 @@ void Player::Draw()
 	{
 		SHADER.m_spriteShader.SetMatrix(m_Mat);
 		SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle{ 0,0,128,128 });
+	}
+
+	for (int i = 0; i < m_Life; i++)
+	{
+		SHADER.m_spriteShader.SetMatrix(m_LifeMat[i]);
+		SHADER.m_spriteShader.DrawTex(&m_LifeTex, Math::Rectangle{ 0,0,64,64 });
 	}
 }
 

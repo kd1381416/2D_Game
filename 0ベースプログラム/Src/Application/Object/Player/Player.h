@@ -32,7 +32,13 @@ private:
 
 	static const int	m_MaxLife = 3;
 
-	int		m_Life;				//残機
+	//残機
+	int				m_Life = m_MaxLife;
+	KdTexture		m_LifeTex;
+	Math::Matrix	m_LifeTransMat;
+	Math::Matrix	m_LifeScaleMat;
+	Math::Matrix	m_LifeMat[m_MaxLife];
+
 	float	m_ShotInterval;		//発射間隔
 
 

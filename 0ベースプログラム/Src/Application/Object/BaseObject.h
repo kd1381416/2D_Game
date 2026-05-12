@@ -9,6 +9,7 @@ public:
 		Player,	//プレイヤー
 		Bullet,	//弾
 		Enemy,	//エネミー
+		Enemy2,	//エネミー2
 		EnemyBullet	//敵の弾
 	};
 
