@@ -1,34 +1,48 @@
 #include "Enemy2.h"
 
-void Enemy2::Init()
-{
-	m_Tex.Load("Texturte/Game/Enemy2.png");
-	m_Pos = {};
-	m_Speed = 10.0;
-	m_Active = true;
+#include"Src/Application/Object/Player/Player.h"
 
+void HomingEnemy::Init()
+{
+	m_Tex.Load("Texture/Game/HomingEnemy.png");
+	m_Pos = { 700,0 };
+	m_MoveVec = { 0,0 };
+	m_Speed = 10.0;
+	m_MoveWait = 100;
+	m_Active = true;
 	m_ObjectType = ObjectType::Enemy2;
+
+	m_Player = std::make_shared<Player>();
 }
 
-void Enemy2::Update()
+void HomingEnemy::Update()
 {
 	if (!m_Active)return;
 
-	if (m_Pos.x <= 550) { m_Pos.x -= m_Speed; }
-	else
-	{
-			
-	}
+	m_MoveVec = Math::Vector2::Zero;
+
+	m_MoveVec = m_Player->GetPos() - m_Pos;
+
+	m_MoveVec.Length();
+
+	m_MoveVec.Normalize();
+
+	m_Pos += m_MoveVec;
+
+	m_Mat = Math::Matrix::CreateTranslation(m_Pos.x, m_Pos.y, 1.0f);
 }
 
-void Enemy2::Draw()
+void HomingEnemy::Draw()
+{
+	SHADER.m_spriteShader.SetMatrix(m_Mat);
+	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle{ 0,0,128,128 });
+}
+
+void HomingEnemy::OnHit()
 {
 }
 
-void Enemy2::OnHit()
+void HomingEnemy::Release()
 {
-}
-
-void Enemy2::Release()
-{
+	m_Tex.Release();
 }

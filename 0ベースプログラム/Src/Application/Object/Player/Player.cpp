@@ -14,7 +14,7 @@ void Player::Init()
 	m_LifeTex.Load("Texture/Game/energy.png");
 	m_Mat = Math::Matrix::Identity;
 	m_Life = m_MaxLife;
-	m_Pos = { 0,0 };
+	m_Pos = { -600,0 };
 	m_Speed = 10.0f;
 	m_ShotInterval = 15.0f;
 	m_TexCnt = 0;

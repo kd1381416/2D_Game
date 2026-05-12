@@ -2,10 +2,14 @@
 
 #include"Src/Application/Object/BaseObject.h"
 
-class Enemy2 : public BaseObject
+class Player;
+class BaseObject;
+
+class HomingEnemy : public BaseObject
 {
-	Enemy2() { Init(); }
-	~Enemy2() { Release(); }
+public:
+	HomingEnemy() { Init(); }
+	~HomingEnemy() { Release(); }
 
 	void Init()override;
 	void Update()override;
@@ -16,4 +20,12 @@ class Enemy2 : public BaseObject
 private:
 
 	void Release()override;
+
+	//ホーミング後の動く方向
+	Math::Vector2	m_MoveVec;
+
+	//ホーミングして動くまでの時間
+	float	m_MoveWait;
+
+	std::shared_ptr<BaseObject>	m_Player;
 };

@@ -7,6 +7,7 @@
 #include"Src/Application/Object/BaseObject.h"
 #include"Src/Application/Object/Player/Player.h"
 #include"Src/Application/Object/Enemy/Enemy.h"
+#include"Src/Application/Object/Enemy/Enemy2.h"
 
 void GameScene::Init()
 {
@@ -38,10 +39,10 @@ void GameScene::Update()
 	//“G‚ğƒ‰ƒ“ƒ_ƒ€‚Åo‚·
 	if(int i = rand()% 100 <= 2)
 	{
-		std::shared_ptr<Enemy>	enemy;
-		enemy = std::make_shared<Enemy>();
+		std::shared_ptr<HomingEnemy>enemy;
+		enemy = std::make_shared<HomingEnemy>();
 		enemy->Init();
-		enemy->SetOwner(this);
+		//enemy->SetOwner(this);
 		m_ObjList.push_back(enemy);
 	}
 
