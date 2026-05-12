@@ -42,10 +42,9 @@ void GameScene::Update()
 		std::shared_ptr<HomingEnemy>enemy;
 		enemy = std::make_shared<HomingEnemy>();
 		enemy->Init();
-		//enemy->SetOwner(this);
+		enemy->SetOwner(this);
 		m_ObjList.push_back(enemy);
 	}
-
 
 	//===全オブジェクトの更新関数を呼ぶ===
 	for (int i = 0; i < m_ObjList.size(); i++)
@@ -103,7 +102,22 @@ void GameScene::ListCheck()
 			it++;	// 次の要素へイテレータを進める
 		}
 	}
+}
 
+Math::Vector2 GameScene::GetPlayerVec(Math::Vector2 _pos)
+{
+	Math::Vector2 vec;
+
+	for (auto& obj : m_ObjList)
+	{
+		if (obj->GetObjType() == BaseObject::ObjectType::Player)
+		{
+			vec = obj->GetPos() - _pos;
+			break;
+		}
+	}
+
+	return vec;
 }
 
 void GameScene::Release()

@@ -4,6 +4,7 @@
 
 class BaseObject;
 class ResultScene;
+class Player;
 
 class GameScene : public BaseScene
 {
@@ -29,8 +30,10 @@ public:
 		m_ObjList.push_back(_obj);
 	}
 
-	//Updateの最初にListの名k身をチェックし、Flgがfalseのものを消す
+	//Updateの最初にListの中身をチェックし、Flgがfalseのものを消す
 	void ListCheck();
+
+	Math::Vector2 GetPlayerVec(Math::Vector2 _pos);
 
 	//敵が死んだときに数を増やす
 	void AddEnemyDeathCnt() { ++m_EnemyDeathCnt; }
@@ -47,8 +50,6 @@ private:
 	KdTexture		m_Back1Tex;
 	Math::Vector2	m_Back1Pos;
 	Math::Matrix	m_Back1Mat;
-
-	KdTexture		m_Back2Tex;
 	Math::Vector2	m_Back2Pos;
 	Math::Matrix	m_Back2Mat;
 

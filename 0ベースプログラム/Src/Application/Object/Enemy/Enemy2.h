@@ -2,8 +2,8 @@
 
 #include"Src/Application/Object/BaseObject.h"
 
+class GameScene;
 class Player;
-class BaseObject;
 
 class HomingEnemy : public BaseObject
 {
@@ -17,6 +17,9 @@ public:
 
 	//当たった時の処理
 	void OnHit()override;
+
+	void SetOwner(GameScene* _owner) { m_Owner = _owner; }
+
 private:
 
 	void Release()override;
@@ -27,5 +30,10 @@ private:
 	//ホーミングして動くまでの時間
 	float	m_MoveWait;
 
-	std::shared_ptr<BaseObject>	m_Player;
+	float	m_Rotat;
+
+	Math::Matrix	m_RotatMat;
+	Math::Matrix	m_TransMat;
+
+	GameScene* m_Owner;
 };

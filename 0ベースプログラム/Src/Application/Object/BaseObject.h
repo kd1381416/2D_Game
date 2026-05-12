@@ -9,7 +9,7 @@ public:
 		Player,	//プレイヤー
 		Bullet,	//弾
 		Enemy,	//エネミー
-		Enemy2,	//エネミー2
+		HomingEnemy,	//エネミー2
 		EnemyBullet	//敵の弾
 	};
 
@@ -41,7 +41,7 @@ protected:
 
 	KdTexture		m_Tex;				//画像
 	Math::Matrix	m_Mat;				//行列
-	Math::Vector2	m_Pos = {};			//座標
+	Math::Vector2	m_Pos;			//座標
 	float			m_Speed;			//移動速度
 	bool			m_Active = true;	//生存フラグ
 
