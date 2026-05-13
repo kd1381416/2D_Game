@@ -17,12 +17,6 @@ void GameScene::Init()
 	player->SetOwner(this);
 	m_ObjList.push_back(player);
 
-	//std::shared_ptr<Enemy>	enemy;
-	//enemy = std::make_shared<Enemy>();
-	//enemy->Init();
-	//enemy->SetOwner(this);
-	//m_ObjList.push_back(enemy);
-
 	m_Result = std::make_shared<ResultScene>();
 
 	m_EnemyDeathCnt = 0;

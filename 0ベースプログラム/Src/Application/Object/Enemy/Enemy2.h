@@ -33,6 +33,7 @@ private:
 	float	m_Rotat;
 
 	Math::Matrix	m_RotatMat;
+	Math::Matrix	m_ScaleMat;
 	Math::Matrix	m_TransMat;
 
 	GameScene* m_Owner;

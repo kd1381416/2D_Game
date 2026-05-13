@@ -127,7 +127,7 @@ void Player::EnemyHit()
 	for (auto& obj : m_Owner->GetObjList())
 	{
 		//オブジェクトリストの中から(敵)とだけ当たり判定する
-		if (obj->GetObjType() == ObjectType::Enemy)
+		if (obj->GetObjType() == ObjectType::Enemy || obj->GetObjType() == ObjectType::HomingEnemy)
 		{
 			//対象の座標(ベクトル)-自分の座標(ベクトル)=対象へのベクトル(矢印)
 			Math::Vector2 v;
@@ -162,7 +162,7 @@ void Player::BulletEnemyHIt()
 
 			for (auto& obj2 : m_Owner->GetObjList())
 			{
-				if (obj2->GetObjType() == ObjectType::Enemy)
+				if (obj2->GetObjType() == ObjectType::Enemy || obj->GetObjType() == ObjectType::HomingEnemy)
 				{
 					Math::Vector2 v;
 					v = obj2->GetPos() - b;

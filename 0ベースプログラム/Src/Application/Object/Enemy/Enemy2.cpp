@@ -29,7 +29,7 @@ void HomingEnemy::Update()
 		if (m_MoveWait > 0)
 		{
 			m_MoveVec = m_Owner->GetPlayerVec(m_Pos);
-			m_Rotat = m_MoveVec.Length();
+			m_Rotat = (m_MoveVec.y / 18);
 			m_MoveVec.Normalize();
 			m_MoveVec *= 20;
 			--m_MoveWait;
@@ -40,19 +40,23 @@ void HomingEnemy::Update()
 		}
 	}
 
-	m_RotatMat = Math::Matrix::CreateRotationZ(m_Rotat);
+	m_RotatMat = Math::Matrix::CreateRotationZ(DirectX::XMConvertToRadians(m_Rotat));
+	m_ScaleMat = Math::Matrix::CreateScale(-1.0f, 1.0f, 1.0f);
 	m_TransMat = Math::Matrix::CreateTranslation(m_Pos.x, m_Pos.y, 0.0f);
-	m_Mat = m_RotatMat * m_TransMat;
+	m_Mat = m_RotatMat * m_ScaleMat * m_TransMat;
 }
 
 void HomingEnemy::Draw()
 {
+	if (!m_Active)return;
+
 	SHADER.m_spriteShader.SetMatrix(m_Mat);
 	SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle{ 0,0,128,128 });
 }
 
 void HomingEnemy::OnHit()
 {
+	m_Active = false;
 }
 
 void HomingEnemy::Release()
