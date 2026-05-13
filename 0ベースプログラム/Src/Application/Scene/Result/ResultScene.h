@@ -36,6 +36,12 @@ private:
 	Math::Matrix	m_ScoreScaleMat;
 	Math::Matrix	m_ScoreMat;
 
+	KdTexture		m_TitleTex;
+	Math::Vector2	m_TitlePos;
+	Math::Matrix	m_TitleTransMat;
+	Math::Matrix	m_TitleScaleMat;
+	Math::Matrix	m_TitleMat;
+
 	//スコア表示
 	static const int	MaxDigits = 5;
 	unsigned long		m_Score = 0;

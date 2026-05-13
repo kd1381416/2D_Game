@@ -60,8 +60,8 @@ void Enemy::Update()
 				break;
 			}
 
-			if (m_Pos.y >= ScrTop) { m_Active = false; }
-			if (m_Pos.y <= ScrBottom) { m_Active = false; }
+			if (m_Pos.y >= ScrTop - 96) { m_MoveTime = 0; m_Speed = 0; }
+			if (m_Pos.y <= ScrBottom + 96) { m_MoveTime = 0; m_Speed = 0; }
 			if (m_Pos.x >= ScrRight - 64) { m_MoveTime = 0; m_Speed = 0;}
 			if (m_Pos.x <= ScrLeft + 64) { m_MoveTime = 0; m_Speed = 0;}
 

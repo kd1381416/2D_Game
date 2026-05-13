@@ -21,7 +21,9 @@ void GameScene::Init()
 
 	m_EnemyDeathCnt = 0;
 
-	m_Tex.Load("Texture/Game/BackGround.png");
+	m_HomingEnemyWait = 0;
+
+	m_Tex.Load("Texture/Game/BackGround2.png");
 	m_Back1Pos = {};
 	m_Back2Pos = { m_Back1Pos.x + ScrWidth,m_Back1Pos.y };
 }
@@ -30,14 +32,34 @@ void GameScene::Update()
 {
 	ListCheck();
 
-	//敵をランダムで出す
-	if(int i = rand()% 100 <= 2)
+
+	if (m_NowEnemy <= 0)
 	{
-		std::shared_ptr<HomingEnemy>enemy;
-		enemy = std::make_shared<HomingEnemy>();
-		enemy->Init();
-		enemy->SetOwner(this);
-		m_ObjList.push_back(enemy);
+		for (m_NowEnemy = 0; m_NowEnemy <= MaxEneme; m_NowEnemy++)
+		{
+			std::shared_ptr<Enemy>enemy;
+			enemy = std::make_shared<Enemy>();
+			enemy->Init();
+			enemy->SetOwner(this);
+			m_ObjList.push_back(enemy);
+		}
+	}
+
+	if (m_NowHomingEnemy <= 0)
+	{
+		if(m_HomingEnemyWait<=0)
+		{
+			for (m_NowHomingEnemy = 0; m_NowHomingEnemy <= MaxHomingEnemy; m_NowHomingEnemy++)
+			{
+				std::shared_ptr<HomingEnemy>enemy;
+				enemy = std::make_shared<HomingEnemy>();
+				enemy->Init();
+				enemy->SetOwner(this);
+				m_ObjList.push_back(enemy);
+			}
+
+			m_HomingEnemyWait = 300;
+		}
 	}
 
 	//===全オブジェクトの更新関数を呼ぶ===
@@ -45,6 +67,8 @@ void GameScene::Update()
 	{
 		m_ObjList[i]->Update();
 	}
+
+	--m_HomingEnemyWait;
 
 	//===背景処理(横スクロール)===
 	m_Back1Pos -= {8, 0};
@@ -86,6 +110,18 @@ void GameScene::ListCheck()
 			{
 				SceneManager::Instance().SetEnemyCnt(m_EnemyDeathCnt);
 				SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result);
+			}
+
+			if ((*it)->GetObjType() == BaseObject::ObjectType::Enemy) 
+			{
+				--m_NowEnemy; 
+				if (m_NowEnemy <= 0) { m_NowEnemy = 0; }
+			}
+
+			if ((*it)->GetObjType() == BaseObject::ObjectType::HomingEnemy)
+			{
+				--m_NowHomingEnemy;
+				if (m_NowHomingEnemy <= 0) { m_NowHomingEnemy = 0; }
 			}
 
 			// 無効なオブジェクトをリストから削除

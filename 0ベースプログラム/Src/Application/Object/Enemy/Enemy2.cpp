@@ -6,7 +6,8 @@
 void HomingEnemy::Init()
 {
 	m_Tex.Load("Texture/Game/HomingEnemy.png");
-	m_Pos = { 700,0 };
+	int random = rand() % ((ScrHeight - 128) * 2) - (((ScrHeight - 128) / 2) + 1);
+	m_Pos = { 700,(float)random };
 	m_MoveVec = { 0,0 };
 	m_Speed = 10.0;
 	m_MoveWait = 100;
@@ -19,7 +20,6 @@ void HomingEnemy::Update()
 {
 	if (!m_Active)return;
 
-	
 	if (m_Pos.x >= 550)
 	{
 		m_Pos.x -= m_Speed;
@@ -39,6 +39,10 @@ void HomingEnemy::Update()
 			m_Pos += m_MoveVec;
 		}
 	}
+
+	if (m_Pos.y >= ScrTop) { m_Active = false; }
+	if (m_Pos.y <= ScrBottom) { m_Active = false; }
+	if (m_Pos.x <= ScrLeft) { m_Active = false; }
 
 	m_RotatMat = Math::Matrix::CreateRotationZ(DirectX::XMConvertToRadians(m_Rotat));
 	m_ScaleMat = Math::Matrix::CreateScale(-1.0f, 1.0f, 1.0f);

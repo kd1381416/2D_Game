@@ -9,6 +9,10 @@ void ResultScene::Init()
 	m_ResultTex.Load("Texture/Result/result.png");
 	m_ScoreTex.Load("Texture/Result/Score.png");
 	m_ScoreNumTex.Load("Texture/Result/Number.png");
+	m_TitleTex.Load("Texture/Result/Title.png");
+
+	m_TitlePos = { 0,-250 };
+
 	m_EnemyDeathCnt = SceneManager::Instance().GetEnemyCnt();
 }
 
@@ -44,6 +48,10 @@ void ResultScene::Update()
 	m_ScoreScaleMat = Math::Matrix::CreateScale(1.0f);
 	m_ScoreMat = m_ScoreScaleMat * m_ScoreTransMat;
 
+	m_TitleTransMat = Math::Matrix::CreateTranslation(m_TitlePos.x, m_TitlePos.y, 0.0f);
+	m_TitleScaleMat = Math::Matrix::CreateScale(1.0f);
+	m_TitleMat = m_TitleScaleMat * m_TitleTransMat;
+
 	for (int i = 0; i < MaxDigits; i++)
 	{
 		m_ScoreNumTransMat[i] = Math::Matrix::CreateTranslation(50 + (64 * i), -10, 0);
@@ -70,6 +78,12 @@ void ResultScene::Draw()
 		Math::Rectangle numrec = { numberanime[m_Digits[i]] ,0,64,64 };
 		SHADER.m_spriteShader.DrawTex(&m_ScoreNumTex, numrec);
 	}
+
+	SHADER.m_spriteShader.SetMatrix(m_TitleMat);
+	SHADER.m_spriteShader.DrawTex(&m_TitleTex, Math::Rectangle(0, 0, 750, 250));
+
+	SHADER.m_spriteShader.SetMatrix(Math::Matrix::Identity);
+	SHADER.m_spriteShader.DrawBox(0, -250, 150, 50, &Math::Color{ 1,1,1,1 }, false);
 }
 
 void ResultScene::Release()

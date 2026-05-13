@@ -168,7 +168,7 @@ void Player::BulletEnemyHIt()
 					v = obj2->GetPos() - b;
 
 					//球判定(ベクトルの長さで判定)
-					if (v.Length() < 32.0f)
+					if (v.Length() < 64.0f)
 					{
 						//Hit時の処理を行う
 						obj->OnHit();

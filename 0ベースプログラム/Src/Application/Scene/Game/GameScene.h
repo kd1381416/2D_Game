@@ -53,6 +53,13 @@ private:
 	Math::Vector2	m_Back2Pos;
 	Math::Matrix	m_Back2Mat;
 
+	static const int	MaxEneme = 2;
+	int		m_NowEnemy;
+
+	static const int	MaxHomingEnemy = 2;
+	int		m_NowHomingEnemy;
+	int		m_HomingEnemyWait;
+
 	//Enemy‚ğ“|‚µ‚½”
 	int		m_EnemyDeathCnt;
 
