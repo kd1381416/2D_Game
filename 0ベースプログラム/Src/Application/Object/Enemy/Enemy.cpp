@@ -7,14 +7,16 @@
 void Enemy::Init()
 {
 	m_Tex.Load("Texture/Game/Enemy.png");
-	int random = rand() % ((ScrHeight - 128) * 2) - (((ScrHeight - 128) / 2) + 1);
+	int random = rand() % (ScrHeight - 128) - (((ScrHeight - 128) / 2) + 1);
 	m_Pos = { ScrRight + 10.0, (float)random };
 	m_Speed = 10.0f;
 	m_FarstMove = 50;
 	m_ShotInterval = 20;
 	m_ShotCnt = 0;
+	m_ShotFlg = false;
 	m_RandMove = rand() % 100;
 	m_MoveTime = 20;
+	m_MoveFlg = true;
 	m_Active = true;
 	m_MoveInterval = 60;
 	m_ObjectType = ObjectType::Enemy;
@@ -33,53 +35,60 @@ void Enemy::Update()
 	}
 	else
 	{
-		m_Speed = 10;
-
 		if(m_MoveInterval<=0)
 		{
-			if (m_MoveTime <= 0)
+			if(m_MoveFlg)
 			{
-				m_MoveTime = 10;
-				m_MoveInterval = 60;
-				m_MoveDir = rand() % 4;
+				if (m_MoveTime <= 0)
+				{
+					m_MoveTime = 10;
+					m_MoveInterval = 60;
+					m_MoveDir = rand() % 4;
+
+					m_MoveFlg = false;
+					m_ShotFlg = true;
+				}
+
+				switch (m_MoveDir)
+				{
+				case 0:
+					if (m_Pos.x >= ScrRight - 64) break;
+					m_Pos.x += m_Speed;
+					break;
+				case 1:
+					if (m_Pos.x <= ScrLeft + 64) break;
+					m_Pos.x -= m_Speed;
+					break;
+				case 2:
+					if (m_Pos.y >= ScrTop - 96) break;
+					m_Pos.y += m_Speed;
+					break;
+				case 3:
+					if (m_Pos.y <= ScrBottom + 96) break;
+					m_Pos.y -= m_Speed;
+					break;
+				}
+
+				--m_MoveTime;
 			}
-
-			switch (m_MoveDir)
-			{
-			case 0:
-				m_Pos.x += m_Speed;
-				break;
-			case 1:
-				m_Pos.x -= m_Speed;
-				break;
-			case 2:
-				m_Pos.y += m_Speed;
-				break;
-			case 3:
-				m_Pos.y -= m_Speed;
-				break;
-			}
-
-			if (m_Pos.y >= ScrTop - 96) { m_MoveTime = 0; m_Speed = 0; }
-			if (m_Pos.y <= ScrBottom + 96) { m_MoveTime = 0; m_Speed = 0; }
-			if (m_Pos.x >= ScrRight - 64) { m_MoveTime = 0; m_Speed = 0;}
-			if (m_Pos.x <= ScrLeft + 64) { m_MoveTime = 0; m_Speed = 0;}
-
-			--m_MoveTime;
 		}
-
 
 		if (m_ShotInterval <= 0)
 		{
-			Shot();
-			++m_ShotCnt;
-			m_ShotInterval = 5;
-
-			if (m_ShotCnt >= 3)
+			if(m_ShotFlg)
 			{
-				m_ShotInterval = 100;
-				m_RandMove = rand() % 100;
-				m_ShotCnt = 0;
+				Shot();
+				++m_ShotCnt;
+				m_ShotInterval = 5;
+
+				if (m_ShotCnt >= 3)
+				{
+					m_ShotInterval = 100;
+					m_RandMove = rand() % 100;
+					m_MoveFlg = true;
+					m_ShotFlg = false;
+					m_ShotCnt = 0;
+				}
 			}
 		}
 			

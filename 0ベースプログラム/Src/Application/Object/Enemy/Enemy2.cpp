@@ -6,7 +6,7 @@
 void HomingEnemy::Init()
 {
 	m_Tex.Load("Texture/Game/HomingEnemy.png");
-	int random = rand() % ((ScrHeight - 128) * 2) - (((ScrHeight - 128) / 2) + 1);
+	int random = rand() % (ScrHeight - 128) - (((ScrHeight - 128) / 2) + 1);
 	m_Pos = { 700,(float)random };
 	m_MoveVec = { 0,0 };
 	m_Speed = 10.0;

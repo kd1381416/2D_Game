@@ -42,6 +42,8 @@ private:
 
 	float	m_ShotInterval;		//発射間隔
 
+	//移動しているか
+	bool	m_MoveFlg;
 
 	//被弾したとき
 	KdTexture	m_HitTex;
@@ -49,6 +51,15 @@ private:
 	int			m_TexSleep;
 	int			m_TexCnt;
 
+	//エンジンアニメーション
+	static const int	AnimetionNum = 16;
+
+	float				m_EngineAnimetionCnt;
+	float				m_EngineAnimetionAddCnt;
+	KdTexture		m_EngineTex[AnimetionNum];
+	Math::Matrix	m_EngineTransMat;
+	Math::Matrix	m_EngineScaleMat;
+	Math::Matrix	m_EngineMat;
 
 	GameScene* m_Owner = nullptr;
 };

@@ -22,6 +22,13 @@ void GameScene::Init()
 	m_EnemyDeathCnt = 0;
 
 	m_HomingEnemyWait = 0;
+	m_EnemyInterval = 0;
+
+
+	for (int i = 0; i < MaxEnemy; i++)
+	{
+		m_NowEnemy[i] = false;
+	}
 
 	m_Tex.Load("Texture/Game/BackGround2.png");
 	m_Back1Pos = {};
@@ -33,23 +40,29 @@ void GameScene::Update()
 	ListCheck();
 
 
-	if (m_NowEnemy <= 0)
+	for (int i = 0; i <= MaxEnemy; ++i)
 	{
-		for (m_NowEnemy = 0; m_NowEnemy <= MaxEneme; m_NowEnemy++)
+		if (!m_NowEnemy[i])
 		{
-			std::shared_ptr<Enemy>enemy;
-			enemy = std::make_shared<Enemy>();
-			enemy->Init();
-			enemy->SetOwner(this);
-			m_ObjList.push_back(enemy);
+			if(m_EnemyInterval<=0)
+			{
+				std::shared_ptr<Enemy>enemy;
+				enemy = std::make_shared<Enemy>();
+				enemy->Init();
+				enemy->SetOwner(this);
+				m_ObjList.push_back(enemy);
+				m_NowEnemy[i] = true;
+				m_EnemyInterval = 100;
+			}
 		}
 	}
 
+
 	if (m_NowHomingEnemy <= 0)
 	{
-		if(m_HomingEnemyWait<=0)
+		if(m_HomingEnemyWait <= 0)
 		{
-			for (m_NowHomingEnemy = 0; m_NowHomingEnemy <= MaxHomingEnemy; m_NowHomingEnemy++)
+			for (m_NowHomingEnemy = 0; m_NowHomingEnemy < MaxHomingEnemy; m_NowHomingEnemy++)
 			{
 				std::shared_ptr<HomingEnemy>enemy;
 				enemy = std::make_shared<HomingEnemy>();
@@ -69,6 +82,7 @@ void GameScene::Update()
 	}
 
 	--m_HomingEnemyWait;
+	--m_EnemyInterval;
 
 	//===”wŒiˆ—(‰¡ƒXƒNƒ[ƒ‹)===
 	m_Back1Pos -= {8, 0};
@@ -114,8 +128,15 @@ void GameScene::ListCheck()
 
 			if ((*it)->GetObjType() == BaseObject::ObjectType::Enemy) 
 			{
-				--m_NowEnemy; 
-				if (m_NowEnemy <= 0) { m_NowEnemy = 0; }
+				for (int i = 0; i < MaxEnemy; i++)
+				{
+					if (m_NowEnemy[i])
+					{
+						m_NowEnemy[i] = false;
+						m_EnemyInterval = 100;
+						break;
+					}
+				}
 			}
 
 			if ((*it)->GetObjType() == BaseObject::ObjectType::HomingEnemy)

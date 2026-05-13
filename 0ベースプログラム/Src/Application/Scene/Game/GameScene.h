@@ -53,8 +53,9 @@ private:
 	Math::Vector2	m_Back2Pos;
 	Math::Matrix	m_Back2Mat;
 
-	static const int	MaxEneme = 2;
-	int		m_NowEnemy;
+	static const int	MaxEnemy = 5;
+	int			m_EnemyInterval;	//敵の出現のインターバル
+	bool		m_NowEnemy[MaxEnemy];
 
 	static const int	MaxHomingEnemy = 2;
 	int		m_NowHomingEnemy;

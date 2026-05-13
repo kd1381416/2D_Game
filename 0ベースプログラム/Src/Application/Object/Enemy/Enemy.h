@@ -34,9 +34,12 @@ private:
 
 	int				m_ShotInterval;
 	int				m_ShotCnt;
+	bool			m_ShotFlg;
+
 	int				m_RandMove;
 	int				m_MoveTime;
 	int				m_MoveDir;
+	bool			m_MoveFlg;
 
 	int				m_MoveInterval;
 

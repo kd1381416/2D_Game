@@ -9,9 +9,20 @@
 
 void Player::Init()
 {
-	m_Tex.Load("Texture/Game/player.png");
-	m_HitTex.Load("Texture/Game/playerhit.png");
+	m_Tex.Load("Texture/Game/Player/player.png");
+	m_HitTex.Load("Texture/Game/Player/playerhit.png");
 	m_LifeTex.Load("Texture/Game/energy.png");
+
+	for (int i = 0; i < AnimetionNum; i++)
+	{
+		char text[100];
+		sprintf_s(text, sizeof(text), "Texture/Game/Player/Engine/Turbo_Engine/fire_%d.png", i + 1);
+		m_EngineTex[i].Load(text);
+	}
+	m_EngineAnimetionCnt = 0;
+	m_EngineAnimetionAddCnt = 1.0f;
+
+	m_MoveFlg = false;
 	m_Mat = Math::Matrix::Identity;
 	m_Life = m_MaxLife;
 	m_Pos = { -600,0 };
@@ -39,7 +50,7 @@ void Player::Update()
 		{
 			std::shared_ptr<Bullet>	bullet;
 			bullet = std::make_shared<Bullet>();
-			bullet->SetPos(m_Pos);
+			bullet->SetPos({ m_Pos.x + 32,m_Pos.y });
 			m_Owner->AddObject(bullet);
 			m_ShotInterval = 10.0f;
 		}
@@ -57,6 +68,17 @@ void Player::Update()
 	if (GetAsyncKeyState('T') & 0x8000) { SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title); }
 	if (GetAsyncKeyState('R') & 0x8000) { SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result); }
 
+	//移動時にアニメーションを進める
+	if(m_MoveFlg)
+	{
+		m_EngineAnimetionCnt += m_EngineAnimetionAddCnt;
+		if (m_EngineAnimetionCnt > 15) { m_EngineAnimetionCnt = 15; }
+	}
+	else
+	{
+		m_EngineAnimetionCnt -= m_EngineAnimetionAddCnt;
+		if (m_EngineAnimetionCnt < 0) { m_EngineAnimetionCnt = 0; }
+	}
 
 	//===行列作成===
 	m_Mat = Math::Matrix::CreateTranslation(m_Pos.x, m_Pos.y, 1.0f);
@@ -68,6 +90,11 @@ void Player::Update()
 		m_LifeScaleMat = Math::Matrix::CreateScale(2.0);
 		m_LifeMat[i] = m_LifeScaleMat * m_LifeTransMat;
 	}
+
+	//エンジンアニメーション(通常時)
+	m_EngineTransMat = Math::Matrix::CreateTranslation(m_Pos.x - 60, m_Pos.y, 0.0f);
+	m_EngineScaleMat = Math::Matrix::CreateScale(1.0f);
+	m_EngineMat = m_EngineScaleMat * m_EngineTransMat;
 }
 
 void Player::Draw()
@@ -99,6 +126,9 @@ void Player::Draw()
 		SHADER.m_spriteShader.SetMatrix(m_Mat);
 		SHADER.m_spriteShader.DrawTex(&m_Tex, Math::Rectangle{ 0,0,128,128 });
 	}
+
+	SHADER.m_spriteShader.SetMatrix(m_EngineMat);
+	SHADER.m_spriteShader.DrawTex(&m_EngineTex[(int)m_EngineAnimetionCnt], Math::Rectangle{ 0,0,30,20 });
 
 	for (int i = 0; i < m_Life; i++)
 	{
@@ -162,7 +192,7 @@ void Player::BulletEnemyHIt()
 
 			for (auto& obj2 : m_Owner->GetObjList())
 			{
-				if (obj2->GetObjType() == ObjectType::Enemy || obj->GetObjType() == ObjectType::HomingEnemy)
+				if (obj2->GetObjType() == ObjectType::Enemy || obj2->GetObjType() == ObjectType::HomingEnemy)
 				{
 					Math::Vector2 v;
 					v = obj2->GetPos() - b;
@@ -183,16 +213,41 @@ void Player::BulletEnemyHIt()
 
 void Player::PlayerMove()
 {
-	Math::Vector2 movevec = Math::Vector2::Zero;
-	if (KeyManager::Instance().PushUp())	movevec.y = 1.0f;
-	if (KeyManager::Instance().PushDown())	movevec.y = -1.0f;
-	if (KeyManager::Instance().PushRight())	movevec.x = 1.0f;
-	if (KeyManager::Instance().PushLeft())	movevec.x = -1.0f;
+	Math::Vector2 vec = Math::Vector2::Zero;
+	if (KeyManager::Instance().PushUp())
+	{
+		vec.y = 1.0f;
+		m_MoveFlg = true;
+	}
+	else if (KeyManager::Instance().PushDown())
+	{
+		vec.y = -1.0f;
+		m_MoveFlg = true;
+	}
+	else if (KeyManager::Instance().PushRight())
+	{
+		vec.x = 1.0f;
+		m_MoveFlg = true;
+	}
+	else if (KeyManager::Instance().PushRight())
+	{
+		vec.x = 1.0f;
+		m_MoveFlg = true;
+	}
+	else if (KeyManager::Instance().PushLeft())
+	{
+		vec.x = -1.0f;
+		m_MoveFlg = true;
+	}
+	else
+	{
+		m_MoveFlg = false;
+	}
 
 	//正規化
-	movevec.Normalize();
+	vec.Normalize();
 
-	m_Pos += movevec * m_Speed;
+	m_Pos += vec * m_Speed;
 
 	if (m_Pos.y >= ScrTop - 32) { m_Pos.y = ScrTop - 32; }
 	if (m_Pos.y <= ScrBottom + 32) { m_Pos.y = ScrBottom + 32; }
@@ -205,4 +260,10 @@ void Player::Release()
 {
 	m_Tex.Release();
 	m_HitTex.Release();
+	m_LifeTex.Release();
+
+	for (int i = 0; i < AnimetionNum; i++)
+	{
+		m_EngineTex[i].Release();
+	}
 }
