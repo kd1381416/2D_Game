@@ -2,7 +2,7 @@
 
 void Bullet::Init()
 {
-	m_Tex.Load("Texture/Game/Bullet.png");
+	m_Tex.Load("Texture/Game/Player/Bullet.png");
 	m_Pos = {};
 	m_Speed = 20.0f;
 	m_Active = true;

@@ -36,5 +36,16 @@ private:
 	Math::Matrix	m_ScaleMat;
 	Math::Matrix	m_TransMat;
 
+	//€‚ñ‚¾‚Æ‚«‚Éo‚é”š”­
+	static const int	ExplosionAnimetionNum = 11;
+
+	float			m_ExplosionAnimeCnt;
+	float			m_ExplosionAnimeAddCnt;
+	bool			m_ExplosionFlg;
+	KdTexture		m_ExplosionTex[ExplosionAnimetionNum];
+	Math::Matrix	m_ExplosionTransMat;
+	Math::Matrix	m_ExplosionScaleMat;
+	Math::Matrix	m_ExplosionMat;
+
 	GameScene* m_Owner;
 };

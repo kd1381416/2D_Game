@@ -43,6 +43,26 @@ private:
 
 	int				m_MoveInterval;
 
+	//死んだときに出る爆発
+	static const int	ExplosionAnimetionNum = 11;
+
+	float			m_ExplosionAnimeCnt;
+	float			m_ExplosionAnimeAddCnt;
+	bool			m_ExplosionFlg;
+	KdTexture		m_ExplosionTex[ExplosionAnimetionNum];
+	Math::Matrix	m_ExplosionTransMat;
+	Math::Matrix	m_ExplosionScaleMat;
+	Math::Matrix	m_ExplosionMat;
+
+	//移動時のエフェクト
+	static const int	MoveEffectNum = 16;
+
+	float			m_MoveEffctAnimeCnt;
+	float			m_MoveEffctAnimeAddCnt;
+	KdTexture		m_MoveEffctTex[MoveEffectNum];
+	Math::Matrix	m_MoveEffctTransMat;
+	Math::Matrix	m_MoveEffctScaleMat;
+	Math::Matrix	m_MoveEffctMat;
 
 	Math::Matrix	m_TransMat;
 	Math::Matrix	m_ScaleMat;

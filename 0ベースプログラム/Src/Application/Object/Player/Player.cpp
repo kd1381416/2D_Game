@@ -11,7 +11,7 @@ void Player::Init()
 {
 	m_Tex.Load("Texture/Game/Player/player.png");
 	m_HitTex.Load("Texture/Game/Player/playerhit.png");
-	m_LifeTex.Load("Texture/Game/energy.png");
+	m_LifeTex.Load("Texture/Game/Player/energy.png");
 
 	for (int i = 0; i < AnimetionNum; i++)
 	{
@@ -61,9 +61,6 @@ void Player::Update()
 
 	//===弾と敵の当たり判定===
 	BulletEnemyHIt();
-
-	//弾のインターバル減少
-	--m_ShotInterval;
 	
 	if (GetAsyncKeyState('T') & 0x8000) { SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title); }
 	if (GetAsyncKeyState('R') & 0x8000) { SceneManager::Instance().SetNextScene(SceneManager::SceneType::Result); }
@@ -72,13 +69,16 @@ void Player::Update()
 	if(m_MoveFlg)
 	{
 		m_EngineAnimetionCnt += m_EngineAnimetionAddCnt;
-		if (m_EngineAnimetionCnt > 15) { m_EngineAnimetionCnt = 15; }
+		if (m_EngineAnimetionCnt > 15) { m_EngineAnimetionCnt = 13; }
 	}
 	else
 	{
 		m_EngineAnimetionCnt -= m_EngineAnimetionAddCnt;
-		if (m_EngineAnimetionCnt < 0) { m_EngineAnimetionCnt = 0; }
+		if (m_EngineAnimetionCnt < 0) { m_EngineAnimetionCnt = 2; }
 	}
+
+	//弾のインターバル減少
+	--m_ShotInterval;
 
 	//===行列作成===
 	m_Mat = Math::Matrix::CreateTranslation(m_Pos.x, m_Pos.y, 1.0f);

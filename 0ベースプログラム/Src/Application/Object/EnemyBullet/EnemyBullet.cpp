@@ -2,7 +2,7 @@
 
 void EnemyBullet::Init()
 {
-	m_Tex.Load("Texture/Game/EnemyBullet.png");
+	m_Tex.Load("Texture/Game/Enemy/EnemyBullet.png");
 	m_Pos = {};
 	m_Speed = 10.0f;
 	m_Active = true;

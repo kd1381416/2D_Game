@@ -53,11 +53,26 @@ private:
 	Math::Vector2	m_Back2Pos;
 	Math::Matrix	m_Back2Mat;
 
+	KdTexture		m_ScoreTex;
+	Math::Matrix	m_ScoreTransMat;
+	Math::Matrix	m_ScoreScaleMat;
+	Math::Matrix	m_ScoreMat;
+
+	//スコア表示
+	static const int	MaxDigits = 5;
+	unsigned long		m_Score = 0;
+	int					m_Digits[MaxDigits] = {};
+
+	KdTexture		m_ScoreNumTex;
+	Math::Matrix	m_ScoreNumTransMat[MaxDigits];
+	Math::Matrix	m_ScoreNumScaleMat[MaxDigits];
+	Math::Matrix	m_ScoreNumMat[MaxDigits];
+
 	static const int	MaxEnemy = 5;
 	int			m_EnemyInterval;	//敵の出現のインターバル
 	bool		m_NowEnemy[MaxEnemy];
 
-	static const int	MaxHomingEnemy = 2;
+	static const int	MaxHomingEnemy = 3;
 	int		m_NowHomingEnemy;
 	int		m_HomingEnemyWait;
 

@@ -33,6 +33,9 @@ void GameScene::Init()
 	m_Tex.Load("Texture/Game/BackGround2.png");
 	m_Back1Pos = {};
 	m_Back2Pos = { m_Back1Pos.x + ScrWidth,m_Back1Pos.y };
+
+	m_ScoreTex.Load("Texture/Result/Score.png");
+	m_ScoreNumTex.Load("Texture/Result/Number.png");
 }
 
 void GameScene::Update()
@@ -90,9 +93,34 @@ void GameScene::Update()
 	if (m_Back1Pos.x <= -1280) { m_Back1Pos = { 1280,0 }; }
 	if (m_Back2Pos.x <= -1280) { m_Back2Pos = { 1280,0 }; }
 
+	m_Score = m_EnemyDeathCnt * 100;
+	if (m_Score > 99999)
+	{
+		m_Score = 99999;
+	}
+
+	unsigned long tmp = m_Score;
+	for (int i = MaxDigits - 1; i >= 0; --i)
+	{
+		m_Digits[i] = tmp % 10;
+		tmp /= 10;
+	}
+
 	//===çsóÒçÏê¨===
 	m_Back1Mat = Math::Matrix::CreateTranslation(m_Back1Pos.x, m_Back1Pos.y, 0.0f);
 	m_Back2Mat = Math::Matrix::CreateTranslation(m_Back2Pos.x, m_Back2Pos.y, 0.0f);
+
+	m_ScoreTransMat = Math::Matrix::CreateTranslation(400, 330, 0);
+	m_ScoreScaleMat = Math::Matrix::CreateScale(0.3f);
+	m_ScoreMat = m_ScoreScaleMat * m_ScoreTransMat;
+
+	for (int i = 0; i < MaxDigits; i++)
+	{
+		m_ScoreNumTransMat[i] = Math::Matrix::CreateTranslation(460 + (16 * i), 325, 0);
+		m_ScoreNumScaleMat[i] = Math::Matrix::CreateScale(0.3f);
+		m_ScoreNumMat[i] = m_ScoreNumScaleMat[i] * m_ScoreNumTransMat[i];
+	}
+
 }
 
 void GameScene::Draw()	
@@ -108,6 +136,18 @@ void GameScene::Draw()
 	{
 		m_ObjList[i]->Draw();
 	}
+
+	SHADER.m_spriteShader.SetMatrix(m_ScoreMat);
+	SHADER.m_spriteShader.DrawTex(&m_ScoreTex, Math::Rectangle(0, 0, 750, 250));
+
+	int	numberanime[9] = { 64 * 0 ,64 * 1 ,64 * 2,64 * 3,64 * 4,64 * 5,64 * 6,64 * 6,64 * 8 };
+	for (int i = 0; i < MaxDigits; i++)
+	{
+		SHADER.m_spriteShader.SetMatrix(m_ScoreNumMat[i]);
+		Math::Rectangle numrec = { numberanime[m_Digits[i]] ,0,64,64 };
+		SHADER.m_spriteShader.DrawTex(&m_ScoreNumTex, numrec);
+	}
+
 }
 
 void GameScene::ListCheck()
